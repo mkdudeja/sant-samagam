@@ -3,12 +3,7 @@ import { collection, getDocs } from "firebase/firestore"
 import React from "react"
 import { firestore } from "../firebase/firebase"
 import { IPhonebook } from "../interfaces/shared.interface"
-import {
-  classNames,
-  filterByName,
-  groupByDepartment,
-  groupByLocation,
-} from "./app.helper"
+import { filterByName, groupByDepartment, groupByLocation } from "./app.helper"
 import { DEPARTMENTS, LOCATIONS } from "./shared/config"
 
 const DEPARTMENT_OPTIONS = Object.keys(DEPARTMENTS).map((key) => ({
@@ -95,24 +90,26 @@ function App() {
         <h2 className=" text-center underline text-base font-semibold">
           SAMAGAM COORDINATION COMMITTEE
         </h2>
-        <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-          <table className="min-w-full divide-y divide-gray-300">
-            <tbody className="divide-y divide-gray-200 bg-white">
-              {rowData.map((item) => (
-                <tr key={item.name}>
-                  <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm sm:pl-0">
-                    {item.name}
-                  </td>
-                  <td className="whitespace-nowrap px-2 py-2 text-sm">
-                    {item.designation}
-                  </td>
-                  <td className="whitespace-nowrap px-2 py-2 text-sm">
-                    {item.mobile}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="overflow-x-auto">
+          <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+            <table className="min-w-full divide-y divide-gray-300">
+              <tbody className="divide-y divide-gray-200 bg-white">
+                {rowData.map((item) => (
+                  <tr key={item.name}>
+                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm sm:pl-0">
+                      {item.name}
+                    </td>
+                    <td className="whitespace-nowrap px-2 py-2 text-sm">
+                      {item.designation}
+                    </td>
+                    <td className="whitespace-nowrap px-2 py-2 text-sm">
+                      {item.mobile}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     )
@@ -129,30 +126,30 @@ function App() {
         </h1>
         <div className="overflow-x-auto">
           <div className="inline-block min-w-full align-middle">
-            <table className="min-w-full border-separate border-spacing-0 border border-gray-300">
+            <table className="min-w-full divide-y divide-gray-300 border border-gray-300">
               <thead>
                 <tr>
                   <th
                     scope="col"
-                    className="sticky top-0 z-10 border-b border-gray-300 bg-white bg-opacity-75 py-3.5 pl-4 pr-3 text-left text-sm font-semibold backdrop-blur backdrop-filter sm:pl-6 lg:pl-8"
+                    className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold sm:pl-6 lg:pl-8"
                   >
                     Name
                   </th>
                   <th
                     scope="col"
-                    className="sticky top-0 z-10 hidden border-b border-gray-300 bg-white bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold backdrop-blur backdrop-filter sm:table-cell"
+                    className="px-3 py-3.5 text-left text-sm font-semibold"
                   >
                     Phone
                   </th>
                   <th
                     scope="col"
-                    className="sticky top-0 z-10 hidden border-b border-gray-300 bg-white bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold backdrop-blur backdrop-filter lg:table-cell"
+                    className="px-3 py-3.5 text-left text-sm font-semibold"
                   >
                     Status
                   </th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="divide-y divide-gray-200 bg-white">
                 {!departmentDataKeys.length ? (
                   <tr className="border-t border-gray-200">
                     <th
@@ -198,28 +195,13 @@ function App() {
         </tr>
         {rowData.map((item, index) => (
           <tr key={item.id}>
-            <td
-              className={classNames(
-                index !== rowData.length - 1 ? "border-b border-gray-200" : "",
-                "whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-6 lg:pl-8",
-              )}
-            >
+            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-6 lg:pl-8">
               {item.name}
             </td>
-            <td
-              className={classNames(
-                index !== rowData.length - 1 ? "border-b border-gray-200" : "",
-                "whitespace-nowrap hidden px-3 py-4 text-sm text-gray-500 sm:table-cell",
-              )}
-            >
+            <td className="whitespace-nowrap px-3 py-4 text-sm">
               {item.phone}
             </td>
-            <td
-              className={classNames(
-                index !== rowData.length - 1 ? "border-b border-gray-200" : "",
-                "whitespace-nowrap hidden px-3 py-4 text-sm text-gray-500 lg:table-cell",
-              )}
-            >
+            <td className="whitespace-nowrap px-3 py-4 text-sm">
               {item.status ? (
                 <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
                   Active
@@ -258,7 +240,7 @@ function App() {
           <div className="sm:col-span-2 sm:col-start-1">
             <label
               htmlFor="city"
-              className="block text-sm font-medium leading-6 text-gray-900"
+              className="block text-sm font-medium leading-6"
             >
               Name
             </label>
@@ -267,7 +249,7 @@ function App() {
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -275,7 +257,7 @@ function App() {
           <div className="sm:col-span-2">
             <label
               htmlFor="region"
-              className="block text-sm font-medium leading-6 text-gray-900"
+              className="block text-sm font-medium leading-6"
             >
               Department
             </label>
@@ -283,7 +265,7 @@ function App() {
               <select
                 value={department}
                 onChange={(e) => setDepartment(e.target.value)}
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
               >
                 <option value="">Select</option>
                 {DEPARTMENT_OPTIONS.map((item) => (
@@ -298,7 +280,7 @@ function App() {
           <div className="sm:col-span-2">
             <label
               htmlFor="postal-code"
-              className="block text-sm font-medium leading-6 text-gray-900"
+              className="block text-sm font-medium leading-6"
             >
               Location
             </label>
@@ -306,7 +288,7 @@ function App() {
               <select
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
               >
                 <option value="">Select</option>
                 {LOCATION_OPTIONS.map((item) => (
