@@ -1,0 +1,882 @@
+[
+  {
+    "name": "Rev. Sukhdev Singh Ji",
+    "phone": "0180-6621434 / 435",
+    "mobile": "+91-9876543210",
+    "department": "b844a38c-9f05-4a8b-b946-3b5aa7157202",
+    "designation": "0ef1f011-c384-4d28-89c9-b39c3803a028",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": true,
+    "status": true
+  },
+  {
+    "name": "Rev. Vinod Vohra Ji",
+    "phone": "0180-6621434 / 434",
+    "mobile": "+91-9876543210",
+    "department": "b844a38c-9f05-4a8b-b946-3b5aa7157202",
+    "designation": "fb783fca-b937-4a3e-b37a-4fee8195b410",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": true,
+    "status": true
+  },
+  {
+    "name": "Dr. Parveen Khullar Ji",
+    "phone": "0180-6621434 / 434",
+    "mobile": "+91-9876543210",
+    "department": "b844a38c-9f05-4a8b-b946-3b5aa7157202",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": true,
+    "status": true
+  },
+  {
+    "name": "Rev. Joginder Sukhija Ji",
+    "phone": "0180-6621432 / 432",
+    "mobile": "+91-9876543210",
+    "department": "b844a38c-9f05-4a8b-b946-3b5aa7157202",
+    "designation": "308e5ae6-50a0-4fde-868f-d19b6c7ed573",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": true,
+    "status": true
+  },
+  {
+    "name": "Staff Room (Rev. Vivek Ji / Rev.Manish Ji)",
+    "phone": "0180-6621436 / 436",
+    "mobile": "+91-9876543210",
+    "department": "b844a38c-9f05-4a8b-b946-3b5aa7157202",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Reception",
+    "phone": "0180-6621437 / 437",
+    "mobile": "+91-9876543210",
+    "department": "b844a38c-9f05-4a8b-b946-3b5aa7157202",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. Bhavani Ram Ji",
+    "phone": "0180-6621475 / 475",
+    "mobile": "+91-9876543210",
+    "department": "b844a38c-9f05-4a8b-b946-3b5aa7157202",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. Gorakh Nandan Ji",
+    "phone": "0180-6621438 / 438",
+    "mobile": "+91-9876543210",
+    "department": "b844a38c-9f05-4a8b-b946-3b5aa7157202",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. Sangeeta Ji",
+    "phone": "0180-6621433 / 433",
+    "mobile": "+91-9876543210",
+    "department": "b844a38c-9f05-4a8b-b946-3b5aa7157202",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. J.K. Manchanda Ji",
+    "phone": "0180-6621495 / 495",
+    "mobile": "+91-9876543210",
+    "department": "8949749d-1230-4196-b9c2-c17798ee04ad",
+    "designation": "308e5ae6-50a0-4fde-868f-d19b6c7ed573",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": true,
+    "status": true
+  },
+  {
+    "name": "Rev. Gurmeet Ji",
+    "phone": "0180-6621496 / 496",
+    "mobile": "+91-9876543210",
+    "department": "8949749d-1230-4196-b9c2-c17798ee04ad",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. Vijay Batra Ji",
+    "phone": "0180-6621497 / 497",
+    "mobile": "+91-9876543210",
+    "department": "8949749d-1230-4196-b9c2-c17798ee04ad",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. Surinder Ji(Receipt Counter)",
+    "phone": "0180-6621416 / 416",
+    "mobile": "+91-9876543210",
+    "department": "8949749d-1230-4196-b9c2-c17798ee04ad",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Green Room",
+    "phone": "0180-6621411 / 411",
+    "mobile": "+91-9876543210",
+    "department": "798a0575-3ddb-406f-8882-2a5e4c1a2217",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Special Needs",
+    "phone": "0180-6621452 / 452",
+    "mobile": "+91-9876543210",
+    "department": "798a0575-3ddb-406f-8882-2a5e4c1a2217",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Design Studio",
+    "phone": "0180-6621412 / 412",
+    "mobile": "+91-9876543210",
+    "department": "798a0575-3ddb-406f-8882-2a5e4c1a2217",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Studio Reception",
+    "phone": "0180-6621454 / 454",
+    "mobile": "+91-9876543210",
+    "department": "798a0575-3ddb-406f-8882-2a5e4c1a2217",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. Mohan Chhabra Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "7074183c-88fd-48cf-af74-e7cb0d60c102",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. Sushil Chugh Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "7074183c-88fd-48cf-af74-e7cb0d60c102",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Canteen and Langar Store",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "7074183c-88fd-48cf-af74-e7cb0d60c102",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. Gurnam Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "7074183c-88fd-48cf-af74-e7cb0d60c102",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Canteen &amp; Langer Store - Staff",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "7074183c-88fd-48cf-af74-e7cb0d60c102",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. Kuldeep Singh Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "ae239d61-20a7-499f-80f2-459e6450be33",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "SNCF Exhibition(Rev. Kunal Ji)",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "ae239d61-20a7-499f-80f2-459e6450be33",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. Deepak Bagga Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "ae239d61-20a7-499f-80f2-459e6450be33",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Divine Studio(Rev. Ruby Ji)",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "ae239d61-20a7-499f-80f2-459e6450be33",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. Ashok Manchanda Ji/ Rev. Ved Batra Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "2aa7a838-d182-4e63-8f23-0df3b96d7c4c",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. Ravi Kumar Ji (Accounts)",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "2aa7a838-d182-4e63-8f23-0df3b96d7c4c",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. Vinod Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "2aa7a838-d182-4e63-8f23-0df3b96d7c4c",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. Ravi Andani Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "2aa7a838-d182-4e63-8f23-0df3b96d7c4c",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Meeting Room",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "2aa7a838-d182-4e63-8f23-0df3b96d7c4c",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Pantry",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "2aa7a838-d182-4e63-8f23-0df3b96d7c4c",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Reception",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "2aa7a838-d182-4e63-8f23-0df3b96d7c4c",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Dr. Parveen Khullar Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "1fe3c930-92c6-4d35-91d1-7bac27a76d0a",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. Avinash Garg Ji / Rev. Sunil Madan Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "1fe3c930-92c6-4d35-91d1-7bac27a76d0a",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. Amit Ji (ICT)",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "1fe3c930-92c6-4d35-91d1-7bac27a76d0a",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Stationary Counter - Rev. Satguru Sharan Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "1fe3c930-92c6-4d35-91d1-7bac27a76d0a",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. Raj Kumari Ji (Mami Ji)/ Rev. Vivek Mauji Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "ee04afd1-75f4-43e0-adcc-4366b938bddb",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. Primal Singh Pinno Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "ee04afd1-75f4-43e0-adcc-4366b938bddb",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Reception(Rev. Maya Ram Ji)",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "ee04afd1-75f4-43e0-adcc-4366b938bddb",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. Khushwinder Noul Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "56b31e07-144a-47c2-b316-f1ffa28863a2",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. K.L. Doshi Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "56b31e07-144a-47c2-b316-f1ffa28863a2",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Publication / Magazine Stall",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "56b31e07-144a-47c2-b316-f1ffa28863a2",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. Suresh Taneja Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "56b31e07-144a-47c2-b316-f1ffa28863a2",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Publication Store",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "56b31e07-144a-47c2-b316-f1ffa28863a2",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Magazine (Accounts) - Rev. Vidisha Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "56b31e07-144a-47c2-b316-f1ffa28863a2",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. Col. Guleria Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "2f1d1b2a-2519-4862-8dc6-352eff8bb24c",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Control Room - Ground A",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "2f1d1b2a-2519-4862-8dc6-352eff8bb24c",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Main Gate - Gate Number 1",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "2f1d1b2a-2519-4862-8dc6-352eff8bb24c",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Wireless (Back Stage)",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "2f1d1b2a-2519-4862-8dc6-352eff8bb24c",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Special Security (Adv. Kishan Ji)",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "2f1d1b2a-2519-4862-8dc6-352eff8bb24c",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Nerve Room - Rev. Anshit Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "2f1d1b2a-2519-4862-8dc6-352eff8bb24c",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "QRT Room - Special Security",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "2f1d1b2a-2519-4862-8dc6-352eff8bb24c",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Main Entry Gate - Ground A",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "2f1d1b2a-2519-4862-8dc6-352eff8bb24c",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Petrol Pump Gate - Ground A",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "2f1d1b2a-2519-4862-8dc6-352eff8bb24c",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. O.P. Nirankari Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "46dee541-12c0-4604-ad3e-43135700513b",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. S.K. Juneja Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "46dee541-12c0-4604-ad3e-43135700513b",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. Gambhir Singh Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "46dee541-12c0-4604-ad3e-43135700513b",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Uniform Counter (Ground A)",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "46dee541-12c0-4604-ad3e-43135700513b",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Store Room (Ground A)",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "46dee541-12c0-4604-ad3e-43135700513b",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Sewadal Office - Ground B",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "46dee541-12c0-4604-ad3e-43135700513b",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. Shubh Karan Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "46dee541-12c0-4604-ad3e-43135700513b",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. S.K. Dutta Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "46dee541-12c0-4604-ad3e-43135700513b",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Reception1 (Ground A)",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "46dee541-12c0-4604-ad3e-43135700513b",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Reception2 (Ground A)",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "46dee541-12c0-4604-ad3e-43135700513b",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Staff Room (Ground A)",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "46dee541-12c0-4604-ad3e-43135700513b",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. Narinder Singh Ji (Mama Ji)",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "1b81e2a5-6c4c-42a8-aec2-995aa1e087a3",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Transport - Ground B",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "1b81e2a5-6c4c-42a8-aec2-995aa1e087a3",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. Sukhdev Ji - Workshop",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "1b81e2a5-6c4c-42a8-aec2-995aa1e087a3",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Railway - Enquiry",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "45564dda-faf2-4104-ba37-7e6351a922cf",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Electricity Dept - Rev. Verma Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "45564dda-faf2-4104-ba37-7e6351a922cf",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Meerut Canteen - Ground A",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "45564dda-faf2-4104-ba37-7e6351a922cf",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Layout Office - Reception",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "45564dda-faf2-4104-ba37-7e6351a922cf",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Langer Store - Ground A",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "45564dda-faf2-4104-ba37-7e6351a922cf",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Water Supply(Rev. Iqbal Singh Ji)",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "45564dda-faf2-4104-ba37-7e6351a922cf",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Railway - PRS",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "45564dda-faf2-4104-ba37-7e6351a922cf",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Electricity Office (Main)- Rev.Raju Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "45564dda-faf2-4104-ba37-7e6351a922cf",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. Batla Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "45564dda-faf2-4104-ba37-7e6351a922cf",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Layout Office - Rev. Manmohan Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "45564dda-faf2-4104-ba37-7e6351a922cf",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Langer - Ground C",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "45564dda-faf2-4104-ba37-7e6351a922cf",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Dispensary - Dr. Naresh Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "45564dda-faf2-4104-ba37-7e6351a922cf",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "343d3cc1-8ea0-499f-a296-4b0f48ab6e34",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Sant Niwas - ICT Store",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "45564dda-faf2-4104-ba37-7e6351a922cf",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "cb0865da-932c-474e-8710-8ad035238804",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Sant Niwas - Main Gate",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "45564dda-faf2-4104-ba37-7e6351a922cf",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "cb0865da-932c-474e-8710-8ad035238804",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Rev. Swaroop Singh Ji",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "45564dda-faf2-4104-ba37-7e6351a922cf",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "065cd1d7-7882-4fef-ac3d-b9cef2687a58",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Security Gate Number 2",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "45564dda-faf2-4104-ba37-7e6351a922cf",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "065cd1d7-7882-4fef-ac3d-b9cef2687a58",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "CCTV Control Room",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "45564dda-faf2-4104-ba37-7e6351a922cf",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "065cd1d7-7882-4fef-ac3d-b9cef2687a58",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Wireless Control Room",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "45564dda-faf2-4104-ba37-7e6351a922cf",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "065cd1d7-7882-4fef-ac3d-b9cef2687a58",
+    "featured": false,
+    "status": true
+  },
+  {
+    "name": "Main Gate",
+    "phone": "0180-6621446 / 446",
+    "mobile": "+91-9876543210",
+    "department": "45564dda-faf2-4104-ba37-7e6351a922cf",
+    "designation": "000f64d9-a5fa-4f4f-8519-b034404d04d7",
+    "location": "065cd1d7-7882-4fef-ac3d-b9cef2687a58",
+    "featured": false,
+    "status": true
+  }
+]
