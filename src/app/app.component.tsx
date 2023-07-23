@@ -236,7 +236,7 @@ function App() {
       {/* data grids with filters */}
       <div className="space-y-2">
         {/* filters */}
-        <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        <div className="grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6">
           <div className="sm:col-span-2 sm:col-start-1">
             <label
               htmlFor="city"
