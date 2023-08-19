@@ -13,7 +13,6 @@ export const firestoreApi = createApi({
         try {
           const ref = collection(firestore, "phonebook")
           const querySnapshot = await getDocs(ref)
-          console.log("querySnapshot", querySnapshot.docs)
           const phonebook = querySnapshot.docs.map((doc) => ({
             ...doc.data(),
             id: doc.id,

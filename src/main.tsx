@@ -1,7 +1,10 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
+import { ToastContainer } from "react-toastify"
 import { registerSW } from "virtual:pwa-register"
 import App from "./app/app.component"
+
+import "react-toastify/dist/ReactToastify.css"
 import "./assets/styles/style.css"
 
 registerSW({ immediate: true })
@@ -44,5 +47,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <App />
       </main>
     </div>
+    <ToastContainer toastClassName="text-sm" theme="colored" />
   </React.StrictMode>,
 )

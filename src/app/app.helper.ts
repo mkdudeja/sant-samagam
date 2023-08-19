@@ -8,10 +8,11 @@ export function classNames(...classes: Array<string>) {
 export function getFeaturedPhonebook(data: Array<IPhonebook>) {
   return data
     .filter((item) => item.featured)
-    .sort(
-      (a, b) =>
-        DESIGNATIONS[a.designation].order - DESIGNATIONS[b.designation].order,
-    )
+    .sort((a, b) => {
+      const aOrder = DESIGNATIONS.indexOf(a.designation)
+      const bOrder = DESIGNATIONS.indexOf(b.designation)
+      return aOrder - bOrder
+    })
 }
 
 export function filterByName(data: Array<IPhonebook>, name: string) {
@@ -35,7 +36,11 @@ export function groupByLocation(
     }, {})
 
   return Object.keys(result)
-    .sort((a, b) => LOCATIONS[a].order - LOCATIONS[b].order)
+    .sort((a, b) => {
+      const aOrder = LOCATIONS.indexOf(a)
+      const bOrder = LOCATIONS.indexOf(b)
+      return aOrder - bOrder
+    })
     .reduce<Record<string, Array<IPhonebook>>>((acc, key) => {
       acc[key] = result[key]
       return acc
@@ -58,7 +63,11 @@ export function groupByDepartment(
     }, {})
 
   return Object.keys(result)
-    .sort((a, b) => DEPARTMENTS[a].order - DEPARTMENTS[b].order)
+    .sort((a, b) => {
+      const aOrder = DEPARTMENTS.indexOf(a)
+      const bOrder = DEPARTMENTS.indexOf(b)
+      return aOrder - bOrder
+    })
     .reduce<Record<string, Array<IPhonebook>>>((acc, key) => {
       acc[key] = result[key]
       return acc

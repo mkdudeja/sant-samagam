@@ -2,6 +2,7 @@ export interface IPhonebook {
   id: string
   name: string
   phone: string
+  extn: string
   mobile: string
   designation: string
   department: string
