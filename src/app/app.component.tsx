@@ -57,10 +57,10 @@ function App() {
           <tbody className="divide-y divide-gray-200 bg-white">
             {rowData.map((item) => (
               <tr key={item.name}>
-                <td className="whitespace-nowrap px-2 py-2 w-2/4 text-sm">
+                <td className="whitespace-nowrap py-1 px-2 lg:py-2 w-2/4 text-sm">
                   {item.name}
                   <div className="flex justify-between items-center lg:hidden print:hidden">
-                    <span className="text-gray-400">{item.designation}</span>
+                    <span className="text-gray-500">{item.designation}</span>
                     <span className="">
                       {renderPhone(item.mobile as string)}
                     </span>
@@ -161,7 +161,7 @@ function App() {
             <td className="whitespace-nowrap py-2 pl-4 pr-3 w-2/4 text-sm font-normal">
               {item.name}
               <div className="flex justify-between items-center lg:hidden print:hidden">
-                <span className="text-gray-700">
+                <span className="text-gray-500">
                   {renderPhone(item.phone, item.extn)}
                 </span>
                 <span className="">{renderStatus(item.status)}</span>
