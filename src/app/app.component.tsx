@@ -57,7 +57,7 @@ function App() {
           <tbody className="divide-y divide-gray-200 bg-white">
             {rowData.map((item) => (
               <tr key={item.name}>
-                <td className="whitespace-nowrap px-2 py-2 w-2/4 text-xs lg:text-sm">
+                <td className="whitespace-nowrap px-2 py-2 w-2/4 text-sm">
                   {item.name}
                   <div className="flex justify-between items-center lg:hidden print:hidden">
                     <span className="text-gray-400">{item.designation}</span>
@@ -66,10 +66,10 @@ function App() {
                     </span>
                   </div>
                 </td>
-                <td className="hidden lg:table-cell print:table-cell whitespace-nowrap px-2 py-2 w-1/4 text-xs lg:text-sm">
+                <td className="hidden lg:table-cell print:table-cell whitespace-nowrap px-2 py-2 w-1/4 text-sm">
                   {item.designation}
                 </td>
-                <td className="hidden lg:table-cell  print:table-cell whitespace-nowrap px-2 py-2 w-1/4 text-xs lg:text-sm">
+                <td className="hidden lg:table-cell  print:table-cell whitespace-nowrap px-2 py-2 w-1/4 text-sm">
                   {renderPhone(item.mobile as string)}
                 </td>
               </tr>
@@ -95,19 +95,19 @@ function App() {
               <tr>
                 <th
                   scope="col"
-                  className="px-3 py-2 w-2/4 text-left text-xs lg:text-sm font-semibold"
+                  className="px-3 py-2 w-2/4 text-left text-sm font-semibold"
                 >
                   Name
                 </th>
                 <th
                   scope="col"
-                  className="px-3 py-2 w-1/4 text-left text-xs lg:text-sm font-semibold"
+                  className="px-3 py-2 w-1/4 text-left text-sm font-semibold"
                 >
                   Phone
                 </th>
                 <th
                   scope="col"
-                  className="px-3 py-2 w-1/4 text-center text-xs lg:text-sm font-semibold"
+                  className="px-3 py-2 w-1/4 text-center text-sm font-semibold"
                 >
                   Status
                 </th>
@@ -119,7 +119,7 @@ function App() {
                   <th
                     colSpan={3}
                     scope="colgroup"
-                    className="text-left bg-red-100 text-red-700 py-2 pl-4 pr-3 text-xs lg:text-sm font-medium"
+                    className="text-left bg-red-100 text-red-700 py-2 pl-4 pr-3 text-sm font-medium"
                   >
                     No data found.
                   </th>
@@ -151,26 +151,26 @@ function App() {
           <th
             colSpan={3}
             scope="colgroup"
-            className="py-2 pl-4 pr-3 text-left text-xs lg:text-sm font-semibold sm:pl-3"
+            className="py-2 pl-4 pr-3 text-left text-sm font-semibold sm:pl-3"
           >
             {departmentId ?? "NA"}
           </th>
         </tr>
         {rowData.map((item, index) => (
           <tr key={item.id}>
-            <td className="whitespace-nowrap py-2 pl-4 pr-3 w-2/4 text-xs lg:text-sm font-normal">
+            <td className="whitespace-nowrap py-2 pl-4 pr-3 w-2/4 text-sm font-normal">
               {item.name}
               <div className="flex justify-between items-center lg:hidden print:hidden">
-                <span className="text-gray-400">
+                <span className="text-gray-700">
                   {renderPhone(item.phone, item.extn)}
                 </span>
                 <span className="">{renderStatus(item.status)}</span>
               </div>
             </td>
-            <td className="hidden lg:table-cell print:table-cell whitespace-nowrap px-3 py-2 w-1/4 text-xs lg:text-sm">
+            <td className="hidden lg:table-cell print:table-cell whitespace-nowrap px-3 py-2 w-1/4 text-sm">
               {renderPhone(item.phone, item.extn)}
             </td>
-            <td className="hidden lg:table-cell print:hidden whitespace-nowrap px-3 py-2 w-1/4 text-xs lg:text-sm text-center">
+            <td className="hidden lg:table-cell print:hidden whitespace-nowrap px-3 py-2 w-1/4 text-sm text-center">
               {renderStatus(item.status)}
             </td>
           </tr>
@@ -219,11 +219,11 @@ function App() {
 
   const renderStatus = (status: boolean) => {
     return status ? (
-      <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs lg:text-sm text-green-700 ring-1 ring-inset ring-green-600/20">
+      <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-sm text-green-700 ring-1 ring-inset ring-green-600/20">
         Active
       </span>
     ) : (
-      <span className="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs lg:text-sm text-red-700 ring-1 ring-inset ring-red-600/20">
+      <span className="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-sm text-red-700 ring-1 ring-inset ring-red-600/20">
         Inactive
       </span>
     )
@@ -267,7 +267,7 @@ function App() {
           <div className="sm:col-span-2 sm:col-start-1">
             <label
               htmlFor="username"
-              className="block text-xs lg:text-sm font-medium leading-6"
+              className="block text-sm font-medium leading-6"
             >
               Name
             </label>
@@ -278,7 +278,7 @@ function App() {
                 value={search}
                 autoComplete="off"
                 onChange={(e) => setSearch(e.target.value)}
-                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs lg:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -286,7 +286,7 @@ function App() {
           <div className="sm:col-span-2">
             <label
               htmlFor="department"
-              className="block text-xs lg:text-sm font-medium leading-6"
+              className="block text-sm font-medium leading-6"
             >
               Department
             </label>
@@ -295,7 +295,7 @@ function App() {
                 id="department"
                 value={department}
                 onChange={(e) => setDepartment(e.target.value)}
-                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs lg:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
               >
                 <option value="">Select</option>
                 {depOptions.map((item) => (
@@ -310,7 +310,7 @@ function App() {
           <div className="sm:col-span-2">
             <label
               htmlFor="location"
-              className="block text-xs lg:text-sm font-medium leading-6"
+              className="block text-sm font-medium leading-6"
             >
               Location
             </label>
@@ -319,7 +319,7 @@ function App() {
                 id="location"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs lg:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
               >
                 <option value="">Select</option>
                 {locOptions.map((item) => (
@@ -350,7 +350,7 @@ function App() {
       {/* help text */}
       <ul className="divide-y divide-gray-200 border border-gray-200">
         {HELP_TEXT.map((item, index) => (
-          <li key={index} className="py-2 px-4 text-xs lg:text-sm">
+          <li key={index} className="py-2 px-4 text-sm">
             {item}
           </li>
         ))}
