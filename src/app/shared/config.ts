@@ -74,9 +74,4 @@ export const FEATURED_CONTACTS: Array<Partial<IPhonebook>> = [
     designation: "Member",
     mobile: "9266629812",
   },
-  {
-    name: "Rev. O.P Nirankari Ji",
-    designation: "Member",
-    mobile: "Member",
-  },
 ]
