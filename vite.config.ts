@@ -22,9 +22,9 @@ export default defineConfig({
         display: "standalone",
         scope: "/",
         start_url: "/",
-        short_name: "snm",
-        description: "Annual Nirankari Sant Samagam",
-        name: "Sant Samagam",
+        short_name: "eDirectory",
+        description: "eDirectory | 76th Annual Nirankari Sant Samagam",
+        name: "eDirectory | Sant Samagam",
         icons: [
           {
             src: "pwa-64x64.png",
@@ -58,6 +58,8 @@ export default defineConfig({
   ],
   server: {
     open: true,
+    port: 3000,
+    host: true,
   },
   build: {
     outDir: "build",
