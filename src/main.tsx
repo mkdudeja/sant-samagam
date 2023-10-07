@@ -7,10 +7,30 @@ import App from "./app/app.component"
 import "react-toastify/dist/ReactToastify.css"
 import "./assets/styles/style.css"
 
+const intervalMS = 60 * 60 * 1000
+
 registerSW({
   immediate: true,
   onOfflineReady() {
     toast.success("App can be accessed in offline (no internet) mode as well.")
+  },
+  onRegisteredSW(swUrl, r) {
+    r &&
+      setInterval(async () => {
+        if (!(!r.installing && navigator)) return
+
+        if ("connection" in navigator && !navigator.onLine) return
+
+        const resp = await fetch(swUrl, {
+          cache: "no-store",
+          headers: {
+            cache: "no-store",
+            "cache-control": "no-cache",
+          },
+        })
+
+        if (resp?.status === 200) await r.update()
+      }, intervalMS)
   },
 })
 
