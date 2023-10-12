@@ -1,12 +1,19 @@
+import clsx from "clsx"
 import { collection, getDocs } from "firebase/firestore"
 import React from "react"
 import { toast } from "react-toastify"
 import { firestore } from "../firebase/firebase"
 import { IPhonebook } from "../interfaces/shared.interface"
 import { filterByName, groupByDepartment, groupByLocation } from "./app.helper"
-import { FEATURED_CONTACTS, HELP_TEXT, ICT_CONTACTS } from "./shared/config"
+import {
+  FEATURED_CONTACTS,
+  FEATURED_EXTNS,
+  HELP_TEXT,
+  ICT_CONTACTS,
+} from "./shared/config"
 
 function App() {
+  const [status, setStatus] = React.useState("")
   const [search, setSearch] = React.useState("")
   const [location, setLocation] = React.useState("")
   const [department, setDepartment] = React.useState("")
@@ -49,6 +56,47 @@ function App() {
     fetchPost()
   }, [])
 
+  const renderIntercom = (rowData: Array<Partial<IPhonebook>>) => {
+    if (!rowData.length) return
+    const renderIntercomRow = (item: Partial<IPhonebook>, level = 0) => {
+      const hasExtn = !!item.extn
+      return (
+        <tr key={item.name}>
+          <td
+            className={clsx(
+              "whitespace-nowrap py-1 px-2 lg:py-2 w-10/12 text-sm",
+              !hasExtn && "bg-gray-100",
+            )}
+            colSpan={hasExtn ? 1 : 2}
+          >
+            <div className={clsx("flex flex-col", level && `ml-6`)}>
+              <h4 className="break-words whitespace-normal">{item.name}</h4>
+            </div>
+          </td>
+          {hasExtn && (
+            <td className="whitespace-nowrap px-2 py-2 w-2/12 text-sm">
+              {renderPhone(item.extn as string)}
+            </td>
+          )}
+        </tr>
+      )
+    }
+    return (
+      <div className="overflow-x-auto">
+        <table className="min-w-full border border-gray-300 rounded-lg">
+          <tbody className="divide-y divide-gray-200 bg-white">
+            {rowData.map((item) => [
+              renderIntercomRow(item),
+              ...(item.children ?? [])?.map((child) =>
+                renderIntercomRow(child, 1),
+              ),
+            ])}
+          </tbody>
+        </table>
+      </div>
+    )
+  }
+
   const renderFeatured = (rowData: Array<Partial<IPhonebook>>) => {
     if (!rowData.length) return
     return (
@@ -57,7 +105,7 @@ function App() {
           <tbody className="divide-y divide-gray-200 bg-white">
             {rowData.map((item) => (
               <tr key={item.name}>
-                <td className="whitespace-nowrap py-1 px-2 lg:py-2 w-2/4 text-sm">
+                <td className="whitespace-nowrap py-1 px-2 lg:py-2 w-6/12 text-sm">
                   {item.name}
                   <div className="flex justify-between items-center lg:hidden print:hidden">
                     <span className="text-gray-500">{item.designation}</span>
@@ -66,10 +114,10 @@ function App() {
                     </span>
                   </div>
                 </td>
-                <td className="hidden lg:table-cell print:table-cell whitespace-nowrap px-2 py-2 w-1/4 text-sm">
+                <td className="hidden lg:table-cell print:table-cell whitespace-nowrap px-2 py-2 w-4/12 text-sm">
                   {item.designation}
                 </td>
-                <td className="hidden lg:table-cell  print:table-cell whitespace-nowrap px-2 py-2 w-1/4 text-sm">
+                <td className="hidden lg:table-cell  print:table-cell whitespace-nowrap px-2 py-2 w-2/12 text-sm">
                   {renderPhone(item.mobile as string)}
                 </td>
               </tr>
@@ -84,6 +132,8 @@ function App() {
     const departmentDataSource = groupByDepartment(rowData, department)
     const departmentDataKeys = Object.keys(departmentDataSource)
 
+    if (!departmentDataKeys.length) return
+
     return (
       <div key={locationId}>
         <h1 className="text-base text-center font-semibold leading-6 py-2 pl-4 pr-3 sm:pl-3 border border-gray-200 bg-gray-200">
@@ -95,19 +145,25 @@ function App() {
               <tr>
                 <th
                   scope="col"
-                  className="px-3 py-2 w-2/4 text-left text-sm font-semibold"
+                  className="px-3 py-2 w-6/12 text-left text-sm font-semibold"
                 >
                   Name
                 </th>
                 <th
                   scope="col"
-                  className="px-3 py-2 w-1/4 text-left text-sm font-semibold"
+                  className="px-3 py-2 w-3/12 text-left text-sm font-semibold"
                 >
                   Phone
                 </th>
                 <th
                   scope="col"
-                  className="px-3 py-2 w-1/4 text-center text-sm font-semibold"
+                  className="px-3 py-2 w-1/12 text-left text-sm font-semibold"
+                >
+                  Extn
+                </th>
+                <th
+                  scope="col"
+                  className="px-3 py-2 w-2/12 text-right text-sm font-semibold"
                 >
                   Status
                 </th>
@@ -117,7 +173,7 @@ function App() {
               {!departmentDataKeys.length ? (
                 <tr className="border-t border-gray-200">
                   <th
-                    colSpan={3}
+                    colSpan={4}
                     scope="colgroup"
                     className="text-left bg-red-100 text-red-700 py-2 pl-4 pr-3 text-sm font-medium"
                   >
@@ -149,7 +205,7 @@ function App() {
       <React.Fragment key={`${locationId}-${departmentId}`}>
         <tr className="border-t border-gray-200 bg-gray-100">
           <th
-            colSpan={3}
+            colSpan={4}
             scope="colgroup"
             className="py-2 pl-4 pr-3 text-left text-sm font-semibold sm:pl-3"
           >
@@ -158,19 +214,26 @@ function App() {
         </tr>
         {rowData.map((item, index) => (
           <tr key={item.id}>
-            <td className="whitespace-nowrap py-2 pl-4 pr-3 w-2/4 text-sm font-normal">
-              {item.name}
-              <div className="flex justify-between items-center lg:hidden print:hidden">
-                <span className="text-gray-500">
-                  {renderPhone(item.phone, item.extn)}
-                </span>
-                <span className="">{renderStatus(item.status)}</span>
+            <td className="whitespace-nowrap py-2 pl-4 pr-3 w-6/12 text-sm font-normal">
+              <div className="flex flex-col">
+                <h4 className="break-words whitespace-normal">{item.name}</h4>
+                <div className="flex justify-between items-center lg:hidden print:hidden">
+                  <div className="flex space-x-2 text-gray-500">
+                    <span>{renderPhone(item.phone)} </span>
+                    <span>|</span>
+                    <span>{renderPhone(item.extn, false)}</span>
+                  </div>
+                  <span className="">{renderStatus(item.status)}</span>
+                </div>
               </div>
             </td>
-            <td className="hidden lg:table-cell print:table-cell whitespace-nowrap px-3 py-2 w-1/4 text-sm">
-              {renderPhone(item.phone, item.extn)}
+            <td className="hidden lg:table-cell print:table-cell whitespace-nowrap px-3 py-2 w-3/12 text-sm">
+              {renderPhone(item.phone)}
             </td>
-            <td className="hidden lg:table-cell print:hidden whitespace-nowrap px-3 py-2 w-1/4 text-sm text-center">
+            <td className="hidden lg:table-cell print:hidden whitespace-nowrap px-3 py-2 w-1/12 text-sm text-left">
+              {renderPhone(item.extn, false)}
+            </td>
+            <td className="hidden lg:table-cell print:hidden whitespace-nowrap px-3 py-2 w-2/12 text-sm text-right">
               {renderStatus(item.status)}
             </td>
           </tr>
@@ -179,11 +242,10 @@ function App() {
     )
   }
 
-  const renderPhone = (phone: string, extn: string = "") => {
-    let phoneno = extn ? `${phone},${extn}` : phone
+  const renderPhone = (value: string, dailer = true) => {
     return (
       <div className="flex space-x-1 items-center">
-        <button className="print:hidden" onClick={() => copyPhoneno(phoneno)}>
+        <button className="print:hidden" onClick={() => copyPhoneno(value)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -199,25 +261,28 @@ function App() {
             />
           </svg>
         </button>
-        <a
-          href={`tel:${phoneno}`}
-          target="_blank"
-          className="text-blue-700"
-          rel="noopener noreferrer"
-        >
-          {phone}
-          {!!extn && <React.Fragment>/ {extn ?? "-"}</React.Fragment>}
-        </a>
+        {dailer ? (
+          <a
+            href={`tel:${value}`}
+            target="_blank"
+            className="text-blue-700"
+            rel="noopener noreferrer"
+          >
+            {value}
+          </a>
+        ) : (
+          <span className="text-blue-700">{value}</span>
+        )}
       </div>
     )
   }
 
   const copyPhoneno = async (value: string) => {
     await navigator.clipboard.writeText(value)
-    toast.success("Copied successfully.")
+    toast.success(`${value} - Copied successfully.`)
   }
 
-  const renderStatus = (status: boolean) => {
+  const renderStatus = (status: number) => {
     return status ? (
       <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-sm text-green-700 ring-1 ring-inset ring-green-600/20">
         Active
@@ -234,7 +299,7 @@ function App() {
   }
 
   const locationDataSource = groupByLocation(
-    filterByName(phonebook, search),
+    filterByName(phonebook, search, status),
     location,
   )
   const locationDataKeys = Object.keys(locationDataSource)
@@ -244,18 +309,23 @@ function App() {
       {/* ICT members */}
       <div className="space-y-2">
         <h2 className="text-center text-md lg:text-base font-semibold">
+          **Dial from your Intercom
+        </h2>
+        {renderIntercom(FEATURED_EXTNS)}
+      </div>
+
+      {/* ICT members */}
+      <div className="space-y-2">
+        <h2 className="text-center text-md lg:text-base font-semibold">
           Dr. Parveen Khullar Ji (Member In charge ICT)
         </h2>
         {renderFeatured(ICT_CONTACTS)}
-        <p className="text-xs italic !mt-1">
-          ICT Helpdesk : 121 (Dial from your Intercom)
-        </p>
       </div>
 
       {/* featured contacts */}
       <div className="space-y-2">
         <h2 className="text-center text-md lg:text-base font-semibold">
-          SAMAGAM COORDINATION COMMITTEE
+          Samagam Committee - All EC Members
         </h2>
         {renderFeatured(FEATURED_CONTACTS)}
       </div>
@@ -263,15 +333,15 @@ function App() {
       {/* data grids with filters */}
       <div className="space-y-4">
         {/* filters */}
-        <div className="grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6 print:hidden">
+        <div className="grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-8 print:hidden">
           <div className="sm:col-span-2 sm:col-start-1">
             <label
               htmlFor="username"
-              className="block text-sm font-medium leading-6"
+              className="block text-xs text-gray-500 font-medium leading-6"
             >
               Name
             </label>
-            <div className="mt-1">
+            <div>
               <input
                 type="text"
                 id="username"
@@ -286,11 +356,11 @@ function App() {
           <div className="sm:col-span-2">
             <label
               htmlFor="department"
-              className="block text-sm font-medium leading-6"
+              className="block text-xs text-gray-500 font-medium leading-6"
             >
               Department
             </label>
-            <div className="mt-1">
+            <div>
               <select
                 id="department"
                 value={department}
@@ -310,11 +380,11 @@ function App() {
           <div className="sm:col-span-2">
             <label
               htmlFor="location"
-              className="block text-sm font-medium leading-6"
+              className="block text-xs text-gray-500 font-medium leading-6"
             >
               Location
             </label>
-            <div className="mt-1">
+            <div>
               <select
                 id="location"
                 value={location}
@@ -327,6 +397,27 @@ function App() {
                     {item}
                   </option>
                 ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="location"
+              className="block text-xs text-gray-500 font-medium leading-6"
+            >
+              Status
+            </label>
+            <div>
+              <select
+                id="status"
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+              >
+                <option value="">Select</option>
+                <option value="1">Active</option>
+                <option value="0">Inactive</option>
               </select>
             </div>
           </div>

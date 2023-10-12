@@ -1,5 +1,5 @@
 import { IPhonebook } from "../interfaces/shared.interface"
-import { DEPARTMENTS, DESIGNATIONS, LOCATIONS } from "./shared/config"
+import { DESIGNATIONS, LOCATIONS } from "./shared/config"
 
 export function classNames(...classes: Array<string>) {
   return classes.filter(Boolean).join(" ")
@@ -15,9 +15,22 @@ export function getFeaturedPhonebook(data: Array<IPhonebook>) {
     })
 }
 
-export function filterByName(data: Array<IPhonebook>, name: string) {
+export function filterByName(
+  data: Array<IPhonebook>,
+  name: string,
+  status: string,
+) {
   const regex = new RegExp(`${name ?? ""}`, "i")
-  return data.filter((item) => regex.test(item.name))
+  const validateStatus =
+    typeof status !== "undefined" && status !== null && !!status
+  const statusValue = validateStatus && Number(status)
+  const hello = data.filter(
+    (item) =>
+      regex.test(item.name) &&
+      (validateStatus ? item.status === statusValue : true),
+  )
+  console.log("hello", hello)
+  return hello
 }
 
 export function groupByLocation(
@@ -64,9 +77,10 @@ export function groupByDepartment(
 
   return Object.keys(result)
     .sort((a, b) => {
-      const aOrder = DEPARTMENTS.indexOf(a)
-      const bOrder = DEPARTMENTS.indexOf(b)
-      return aOrder - bOrder
+      // const aOrder = DEPARTMENTS.indexOf(a)
+      // const bOrder = DEPARTMENTS.indexOf(b)
+      // return aOrder - bOrder
+      return a.localeCompare(b)
     })
     .reduce<Record<string, Array<IPhonebook>>>((acc, key) => {
       acc[key] = result[key]

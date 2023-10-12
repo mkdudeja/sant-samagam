@@ -8,7 +8,8 @@ export interface IPhonebook {
   department: string
   location: string
   featured: boolean
-  status: boolean
+  status: number
+  children: Array<Partial<IPhonebook>>
 }
 
 export interface IBookFilters {
