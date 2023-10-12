@@ -75,7 +75,7 @@ function App() {
           </td>
           {hasExtn && (
             <td className="whitespace-nowrap px-2 py-2 w-2/12 text-sm">
-              {renderPhone(item.extn as string)}
+              {renderPhone(item.extn as string, false)}
             </td>
           )}
         </tr>
