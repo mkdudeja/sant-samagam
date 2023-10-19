@@ -5,6 +5,17 @@ export function classNames(...classes: Array<string>) {
   return classes.filter(Boolean).join(" ")
 }
 
+export function filterByName(data: Array<IPhonebook>, name: string) {
+  const regex = new RegExp(`${name ?? ""}`, "i")
+  return data.filter((item) => {
+    if (item.children) {
+      return item.children.some((child) => regex.test(child.name))
+    }
+
+    return regex.test(item.name)
+  })
+}
+
 export function getFeaturedPhonebook(data: Array<IPhonebook>) {
   return data
     .filter((item) => item.featured)
@@ -15,21 +26,17 @@ export function getFeaturedPhonebook(data: Array<IPhonebook>) {
     })
 }
 
-export function filterByName(
+export function filterPhonebook(
   data: Array<IPhonebook>,
   name: string,
-  status: string,
+  status: string = "",
 ) {
-  const regex = new RegExp(`${name ?? ""}`, "i")
   const validateStatus =
     typeof status !== "undefined" && status !== null && !!status
   const statusValue = validateStatus && Number(status)
-  const hello = data.filter(
-    (item) =>
-      regex.test(item.name) &&
-      (validateStatus ? item.status === statusValue : true),
-  )
-  console.log("hello", hello)
+  const hello = filterByName(data, name)
+    .filter((item) => (validateStatus ? item.status === statusValue : true))
+    .sort((a, b) => a.name.localeCompare(b.name))
   return hello
 }
 

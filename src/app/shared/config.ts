@@ -41,7 +41,7 @@ export const HELP_TEXT = [
 
 export const FEATURED_EXTNS: Array<Partial<IPhonebook>> = [
   {
-    name: "Helpdesk",
+    name: "Service Helpdesk",
     extn: "121",
   },
   {
@@ -147,7 +147,7 @@ export const FEATURED_CONTACTS: Array<Partial<IPhonebook>> = [
   {
     name: "Rev. Vinod Vohra Ji",
     designation: "Member",
-    mobile: "9266629800",
+    mobile: "9266629826",
   },
   {
     name: "Rev. Kishan Dass Ji",
@@ -155,7 +155,7 @@ export const FEATURED_CONTACTS: Array<Partial<IPhonebook>> = [
     mobile: "9266629816",
   },
   {
-    name: "Rev. Manmohan Chhabra Ji",
+    name: "Rev. Manmohan Chhabra (Mohan) Ji",
     designation: "Member",
     mobile: "9266629798",
   },
