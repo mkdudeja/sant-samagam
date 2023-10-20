@@ -42,22 +42,30 @@ export const HELP_TEXT = [
 export const FEATURED_EXTNS: Array<Partial<IPhonebook>> = [
   {
     name: "Service Helpdesk",
-    extn: "121",
+    phone: "0180-6621479",
+    extn: "#9",
+    status: 1,
   },
   {
     name: "Medical Emergency",
+    phone: "0180-6648699",
     extn: "777",
+    status: 1,
   },
   {
     name: "Essential Services Water Supply",
     children: [
       {
         name: "- Ground A",
+        phone: "0180-6648622",
         extn: "622",
+        status: 1,
       },
       {
         name: "- Ground D",
+        phone: "0180-6621467",
         extn: "467",
+        status: 1,
       },
     ],
   },
@@ -66,15 +74,38 @@ export const FEATURED_EXTNS: Array<Partial<IPhonebook>> = [
     children: [
       {
         name: "- Ground A",
+        phone: "0180-6621468",
         extn: "468",
+        status: 1,
       },
       {
         name: "- Ground B",
+        phone: "0180-6648626",
         extn: "626",
+        status: 1,
       },
       {
         name: "- Ground C",
+        phone: "0180-6648627",
         extn: "627",
+        status: 1,
+      },
+      {
+        name: "- Ground D",
+        phone: "0180-6648667",
+        extn: "667",
+        status: 1,
+      },
+    ],
+  },
+  {
+    name: "Fire",
+    children: [
+      {
+        name: "- BackStage",
+        phone: "0180-6621440",
+        extn: "440",
+        status: 1,
       },
     ],
   },

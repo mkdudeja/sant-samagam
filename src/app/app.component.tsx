@@ -69,19 +69,32 @@ function App() {
         <tr key={item.name}>
           <td
             className={clsx(
-              "whitespace-nowrap py-1 px-2 lg:py-2 w-10/12 text-sm",
+              "whitespace-nowrap py-1 px-2 lg:py-2 w-6/12 text-sm",
               !hasExtn && "bg-gray-100",
             )}
-            colSpan={hasExtn ? 1 : 2}
+            colSpan={hasExtn ? 1 : 3}
           >
             <div className={clsx("flex flex-col", level && `ml-6`)}>
               <h4 className="break-words whitespace-normal">{item.name}</h4>
+              {hasExtn && (
+                <>
+                  <div className="flex justify-between items-center lg:hidden print:hidden">
+                    <span>{renderPhone(item.phone, item.status)} </span>
+                    <span>{renderPhone(item.extn, item.status, false)}</span>
+                  </div>
+                </>
+              )}
             </div>
           </td>
           {hasExtn && (
-            <td className="whitespace-nowrap px-2 py-2 w-2/12 text-sm">
-              {renderPhone(item.extn as string, 1, false)}
-            </td>
+            <>
+              <td className="hidden lg:table-cell print:table-cell whitespace-nowrap px-3 py-2 w-4/12 text-sm text-left">
+                {renderPhone(item.phone, item.status)}
+              </td>
+              <td className="hidden lg:table-cell print:table-cell whitespace-nowrap px-3 py-2 w-2/12 text-sm text-right">
+                {renderPhone(item.extn, item.status, false)}
+              </td>
+            </>
           )}
         </tr>
       )
@@ -127,7 +140,7 @@ function App() {
                 <td className="hidden lg:table-cell print:table-cell whitespace-nowrap px-2 py-2 w-4/12 text-sm">
                   {item.designation}
                 </td>
-                <td className="hidden lg:table-cell  print:table-cell whitespace-nowrap px-2 py-2 w-2/12 text-sm">
+                <td className="hidden lg:table-cell  print:table-cell whitespace-nowrap px-2 py-2 w-2/12 text-sm text-right">
                   {renderPhone(item.mobile as string, 1)}
                 </td>
               </tr>
@@ -151,23 +164,29 @@ function App() {
         </h1>
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-300 border border-gray-300">
-            <thead className="hidden lg:table-header-group print:table-header-group">
+            <thead className="print:table-header-group">
               <tr>
                 <th
                   scope="col"
-                  className="px-3 py-2 w-8/12 text-left text-sm font-semibold"
+                  className="px-3 py-2 w-7/12 text-left text-sm font-semibold"
                 >
-                  Name
+                  <div className="justify-between items-center hidden lg:flex print:flex">
+                    Name
+                  </div>
+                  <div className="flex justify-between items-center lg:hidden print:hidden">
+                    <span>Name & Phone </span>
+                    <span>Extn.</span>
+                  </div>
                 </th>
                 <th
                   scope="col"
-                  className="px-3 py-2 w-3/12 text-left text-sm font-semibold"
+                  className="hidden lg:table-cell print:table-cell px-3 py-2 w-3/12 text-left text-sm font-semibold"
                 >
                   Phone
                 </th>
                 <th
                   scope="col"
-                  className="px-3 py-2 w-1/12 text-right text-sm font-semibold"
+                  className="hidden lg:table-cell print:table-cell px-3 py-2 w-2/12 text-right text-sm font-semibold"
                 >
                   Extn
                 </th>
@@ -207,7 +226,7 @@ function App() {
         </tr>
         {rowData.map((item, index) => (
           <tr key={item.id}>
-            <td className="whitespace-nowrap py-2 pl-4 pr-3 w-8/12 text-sm text-left font-normal">
+            <td className="whitespace-nowrap py-2 pl-4 pr-3 w-7/12 text-sm text-left font-normal">
               <div className="flex flex-col">
                 <h4 className="break-words whitespace-normal">{item.name}</h4>
                 <div className="flex justify-between items-center lg:hidden print:hidden">
@@ -219,7 +238,7 @@ function App() {
             <td className="hidden lg:table-cell print:table-cell whitespace-nowrap px-3 py-2 w-3/12 text-sm text-left">
               {renderPhone(item.phone, item.status)}
             </td>
-            <td className="hidden lg:table-cell print:table-cell whitespace-nowrap px-3 py-2 w-1/12 text-sm text-right">
+            <td className="hidden lg:table-cell print:table-cell whitespace-nowrap px-3 py-2 w-2/12 text-sm text-right">
               {renderPhone(item.extn, item.status, false)}
             </td>
           </tr>
@@ -257,7 +276,9 @@ function App() {
             {value}
           </a>
         ) : (
-          <span>{value}</span>
+          <span className={clsx(status ? "text-green-700" : "text-red-700")}>
+            {value}
+          </span>
         )}
       </div>
     )
@@ -390,10 +411,6 @@ function App() {
           <div className="flex space-x-1 items-center">
             <span className="flex w-3 h-3 bg-red-700"></span>
             <span>Inactive</span>
-          </div>
-          <div className="flex space-x-1 items-center">
-            <span className="flex w-3 h-3 bg-black"></span>
-            <span>To be dialed from intercom</span>
           </div>
         </div>
       </div>
