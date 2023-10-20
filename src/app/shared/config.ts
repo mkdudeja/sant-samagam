@@ -53,7 +53,7 @@ export const FEATURED_EXTNS: Array<Partial<IPhonebook>> = [
     status: 1,
   },
   {
-    name: "Essential Services Water Supply",
+    name: "Water Supply",
     children: [
       {
         name: "- Ground A",
@@ -70,7 +70,7 @@ export const FEATURED_EXTNS: Array<Partial<IPhonebook>> = [
     ],
   },
   {
-    name: "Essential Services Electricity",
+    name: "Electricity",
     children: [
       {
         name: "- Ground A",
