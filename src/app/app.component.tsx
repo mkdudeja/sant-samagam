@@ -191,7 +191,7 @@ function App() {
 
     return (
       <div key={locationId}>
-        <h1 className="text-base text-center font-semibold leading-6 py-1 pl-4 pr-3 sm:pl-3 border border-gray-200 bg-gray-200">
+        <h1 className="text-sm text-center font-semibold py-1 pl-4 pr-3 sm:pl-3 border border-gray-200 bg-gray-200">
           {locationId ?? "NA"}
         </h1>
         <div className="overflow-x-auto">
@@ -436,7 +436,7 @@ function App() {
               <div className="sm:col-span-2 sm:col-start-1">
                 <label
                   htmlFor="username"
-                  className="block text-xs text-gray-500 font-medium leading-6"
+                  className="block text-xs text-gray-500 font-medium"
                 >
                   Name
                 </label>
@@ -455,7 +455,7 @@ function App() {
               <div className="sm:col-span-2">
                 <label
                   htmlFor="department"
-                  className="block text-xs text-gray-500 font-medium leading-6"
+                  className="block text-xs text-gray-500 font-medium"
                 >
                   Department
                 </label>
@@ -479,7 +479,7 @@ function App() {
               <div className="sm:col-span-2">
                 <label
                   htmlFor="location"
-                  className="block text-xs text-gray-500 font-medium leading-6"
+                  className="block text-xs text-gray-500 font-medium"
                 >
                   Location
                 </label>
@@ -503,7 +503,7 @@ function App() {
               <div className="sm:col-span-2">
                 <label
                   htmlFor="location"
-                  className="block text-xs text-gray-500 font-medium leading-6"
+                  className="block text-xs text-gray-500 font-medium"
                 >
                   Status
                 </label>
@@ -550,8 +550,8 @@ function App() {
 
           {/* featured extension */}
           {!!filteredFeaturedExtns.length && (
-            <div className="space-y-1">
-              <h2 className="text-center text-sm lg:text-md font-semibold">
+            <div className="space-y-0">
+              <h2 className="text-center text-sm lg:text-md font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
                 Essential Services
               </h2>
               {renderIntercom(filteredFeaturedExtns)}
@@ -560,8 +560,8 @@ function App() {
 
           {/* featured contacts */}
           {!!filteredFeaturedContacts.length && (
-            <div className="space-y-1">
-              <h2 className="text-center text-sm lg:text-md font-semibold">
+            <div className="space-y-0">
+              <h2 className="text-center text-sm lg:text-md font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
                 Samagam Committee
               </h2>
               {renderFeatured(filteredFeaturedContacts)}
@@ -570,8 +570,8 @@ function App() {
 
           {/* ICT members */}
           {!!filteredICTContacts.length && (
-            <div className="space-y-1">
-              <h2 className="text-center text-sm lg:text-md font-semibold">
+            <div className="space-y-0">
+              <h2 className="text-center text-sm lg:text-md font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
                 Dr. Parveen Khullar Ji (Member In charge ICT)
               </h2>
               {renderFeatured(ICT_CONTACTS)}

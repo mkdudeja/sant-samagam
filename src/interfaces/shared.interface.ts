@@ -9,6 +9,7 @@ export interface IPhonebook {
   location: string
   featured: boolean
   status: number
+  sortOrder: number
   children: Array<Partial<IPhonebook>>
 }
 

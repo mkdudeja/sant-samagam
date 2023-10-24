@@ -36,7 +36,15 @@ export function filterPhonebook(
   const statusValue = validateStatus && Number(status)
   const hello = filterByName(data, name)
     .filter((item) => (validateStatus ? item.status === statusValue : true))
-    .sort((a, b) => a.name.localeCompare(b.name, "en", { numeric: true }))
+    .sort((a, b) => {
+      const aSortOrder = a.sortOrder
+      const bSortOrder = b.sortOrder
+      if (aSortOrder && bSortOrder) {
+        return aSortOrder - bSortOrder
+      } else {
+        return a.name.localeCompare(b.name, "en", { numeric: true })
+      }
+    })
   return hello
 }
 
