@@ -64,9 +64,19 @@ function App() {
               }
             })
 
-            setPhonebook(newData)
-            setLocOptions(Object.keys(locationOptions).sort())
-            setDepOptions(Object.keys(departmentOptions).sort())
+            setPhonebook(
+              newData.filter((item) => !!item.location && !!item.department),
+            )
+            setLocOptions(
+              Object.keys(locationOptions)
+                .filter((item) => !!item)
+                .sort(),
+            )
+            setDepOptions(
+              Object.keys(departmentOptions)
+                .filter((item) => !!item)
+                .sort(),
+            )
           },
         )
       } catch (err) {
