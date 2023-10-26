@@ -1,5 +1,5 @@
 import clsx from "clsx"
-import { collection, getDocs } from "firebase/firestore"
+import { collection, doc, getDoc, getDocs } from "firebase/firestore"
 import React from "react"
 import { toast } from "react-toastify"
 import { firestore } from "../firebase/firebase"
@@ -19,6 +19,38 @@ import {
   ICT_CONTACTS,
 } from "./shared/config"
 
+const KEY_PHONEBOOK = "eDirectory_phonebook"
+const KEY_LASTSYNCED = "eDirectory_synced"
+function getInitialValue(): Array<IPhonebook> {
+  try {
+    const result = getLSItem<Array<IPhonebook>>(KEY_PHONEBOOK)
+    return result ?? (PHONEBOOK as unknown as Array<IPhonebook>)
+  } catch (err) {
+    return PHONEBOOK as unknown as Array<IPhonebook>
+  }
+}
+
+function getLSItem<T>(key: string): T {
+  try {
+    const result = localStorage.getItem(key)
+    return result ? JSON.parse(result) : null
+  } catch {
+    return null
+  }
+}
+
+function setLSItem(key: string, value: unknown) {
+  try {
+    if (value) {
+      localStorage.setItem(key, JSON.stringify(value))
+    } else {
+      localStorage.removeItem(key)
+    }
+  } catch {
+    return null
+  }
+}
+
 function App() {
   const [status, setStatus] = React.useState("")
   const [search, setSearch] = React.useState("")
@@ -30,9 +62,8 @@ function App() {
   const [locOptions, setLocOptions] = React.useState<Array<string>>([])
   const [depOptions, setDepOptions] = React.useState<Array<string>>([])
   const [phonebook, setPhonebook] = React.useState<Array<IPhonebook>>()
-  const [dataSource, setDataSource] = React.useState<Array<IPhonebook>>(
-    PHONEBOOK as unknown as Array<IPhonebook>,
-  )
+  const [dataSource, setDataSource] =
+    React.useState<Array<IPhonebook>>(getInitialValue)
 
   const clearFilters = () => {
     setStatus("")
@@ -55,21 +86,48 @@ function App() {
   const isMobile = width < 1024
 
   React.useEffect(() => {
+    const lastSynced = getLSItem<string>(KEY_LASTSYNCED)
+
+    const getLastUpdated = async () => {
+      try {
+        const syncRef = doc(firestore, "lastsynced", "syncid")
+        const syncSnap = await getDoc(syncRef)
+        if (syncSnap.exists) {
+          const docData = syncSnap.data() as {
+            timestamp: string
+          }
+          return docData?.timestamp
+        } else {
+          return null
+        }
+      } catch (err) {
+        return null
+      }
+    }
+
     const queryData = async () => {
       try {
-        await getDocs(collection(firestore, "phonebook")).then(
-          (querySnapshot) => {
-            const result = querySnapshot.docs.map((doc) => ({
-              ...doc.data(),
-              id: doc.id,
-            })) as Array<IPhonebook>
-            setDataSource(result)
-          },
-        )
+        const lastUpdated = await getLastUpdated()
+        const doServerSync = !lastSynced ? true : lastUpdated !== lastSynced
+
+        if (doServerSync) {
+          const queryRef = collection(firestore, "phonebook")
+          const querySnapshot = await getDocs(queryRef)
+          const result = querySnapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          })) as Array<IPhonebook>
+
+          setLSItem(KEY_PHONEBOOK, result)
+          setLSItem(KEY_LASTSYNCED, lastUpdated)
+          console.log("result", result)
+          setDataSource(result)
+        }
       } catch (err) {
         console.error("queryData", err)
       }
     }
+
     queryData()
   }, [])
 
