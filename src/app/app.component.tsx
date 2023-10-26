@@ -10,6 +10,7 @@ import {
   groupByDepartment,
   groupByLocation,
 } from "./app.helper"
+import PHONEBOOK from "./phonebook.json"
 import {
   FEATURED_CONTACTS,
   FEATURED_EXTNS,
@@ -51,40 +52,49 @@ function App() {
   const isMobile = width < 1024
 
   React.useEffect(() => {
-    const fetchPost = async () => {
+    const queryData = async () => {
       try {
-        await getDocs(collection(firestore, "phonebook")).then(
+        return await getDocs(collection(firestore, "phonebook")).then(
           (querySnapshot) => {
-            const newData = querySnapshot.docs.map((doc) => ({
+            return querySnapshot.docs.map((doc) => ({
               ...doc.data(),
               id: doc.id,
             })) as Array<IPhonebook>
-            const locationOptions: Record<string, number> = {}
-            const departmentOptions: Record<string, number> = {}
-            newData.forEach((item) => {
-              if (!departmentOptions[item.department]) {
-                departmentOptions[item.department] = 1
-              }
-
-              if (!locationOptions[item.location]) {
-                locationOptions[item.location] = 1
-              }
-            })
-
-            setPhonebook(
-              newData.filter((item) => !!item.location && !!item.department),
-            )
-            setLocOptions(
-              Object.keys(locationOptions)
-                .filter((item) => !!item)
-                .sort(),
-            )
-            setDepOptions(
-              Object.keys(departmentOptions)
-                .filter((item) => !!item)
-                .sort(),
-            )
           },
+        )
+      } catch (err) {
+        console.error("queryData", err)
+        return PHONEBOOK as unknown as Array<IPhonebook>
+      }
+    }
+
+    const fetchPost = async () => {
+      try {
+        const newData = await queryData()
+        const locationOptions: Record<string, number> = {}
+        const departmentOptions: Record<string, number> = {}
+        newData.forEach((item) => {
+          if (!departmentOptions[item.department]) {
+            departmentOptions[item.department] = 1
+          }
+
+          if (!locationOptions[item.location]) {
+            locationOptions[item.location] = 1
+          }
+        })
+
+        setPhonebook(
+          newData.filter((item) => !!item.location && !!item.department),
+        )
+        setLocOptions(
+          Object.keys(locationOptions)
+            .filter((item) => !!item)
+            .sort(),
+        )
+        setDepOptions(
+          Object.keys(departmentOptions)
+            .filter((item) => !!item)
+            .sort(),
         )
       } catch (err) {
         console.error(err)
