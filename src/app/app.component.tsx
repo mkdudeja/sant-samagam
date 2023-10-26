@@ -30,6 +30,13 @@ function App() {
   const [depOptions, setDepOptions] = React.useState<Array<string>>([])
   const [phonebook, setPhonebook] = React.useState<Array<IPhonebook>>()
 
+  const clearFilters = () => {
+    setStatus("")
+    setSearch("")
+    setLocation("")
+    setDepartment("")
+  }
+
   React.useEffect(() => {
     const onWindowResize = () => {
       setWidth(window.innerWidth)
@@ -391,17 +398,17 @@ function App() {
     return
   }
 
+  const hasListFilters = department || location || status
+  const hasFilters = search || hasListFilters
   const locationDataSource = groupByLocation(
     filterPhonebook(phonebook, search, status),
     location,
   )
   const locationDataKeys = Object.keys(locationDataSource)
-
   const filteredFeaturedPrimary = filterByName(
     FEATURED_EXTNS_PRIMARY as IPhonebook[],
     search,
   )
-
   const filteredFeaturedExtns = filterByName(
     FEATURED_EXTNS as IPhonebook[],
     search,
@@ -533,6 +540,12 @@ function App() {
             </div>
 
             <div className="flex justify-end items-center space-x-4 text-sm">
+              <button
+                onClick={clearFilters}
+                className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
+              >
+                Clear Filters
+              </button>
               <div className="flex space-x-1 items-center">
                 <span className="flex w-3 h-3 bg-blue-700"></span>
                 <span>Active</span>
@@ -545,21 +558,23 @@ function App() {
           </div>
 
           {/* help text */}
-          <ul className="divide-y divide-gray-200 border border-gray-200 text-sm print:text-xs">
-            {HELP_TEXT.map((item, index) => (
-              <li key={index} className="py-1 px-4">
-                {item}
-              </li>
-            ))}
-          </ul>
+          {!hasFilters && (
+            <ul className="divide-y divide-gray-200 border border-gray-200 text-sm print:text-xs">
+              {HELP_TEXT.map((item, index) => (
+                <li key={index} className="py-1 px-4">
+                  {item}
+                </li>
+              ))}
+            </ul>
+          )}
 
           {/* featured extension primary */}
-          {!!filteredFeaturedExtns.length && (
+          {!hasListFilters && !!filteredFeaturedExtns.length && (
             <div className="">{renderIntercom(filteredFeaturedPrimary)}</div>
           )}
 
           {/* featured extension */}
-          {!!filteredFeaturedExtns.length && (
+          {!hasListFilters && !!filteredFeaturedExtns.length && (
             <div className="space-y-0">
               <h2 className="text-center text-sm lg:text-md font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
                 Essential Services
@@ -569,7 +584,7 @@ function App() {
           )}
 
           {/* featured contacts */}
-          {!!filteredFeaturedContacts.length && (
+          {!hasListFilters && !!filteredFeaturedContacts.length && (
             <div className="space-y-0">
               <h2 className="text-center text-sm lg:text-md font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
                 Samagam Committee
@@ -579,7 +594,7 @@ function App() {
           )}
 
           {/* ICT members */}
-          {!!filteredICTContacts.length && (
+          {!hasListFilters && !!filteredICTContacts.length && (
             <div className="space-y-0">
               <h2 className="text-center text-sm lg:text-md font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
                 Dr. Parveen Khullar Ji (Member In charge ICT)
