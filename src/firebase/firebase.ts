@@ -1,4 +1,5 @@
 // Import the functions you need from the SDKs you need
+import { initializeAnalytics } from "firebase/analytics"
 import { initializeApp } from "firebase/app"
 import {
   CACHE_SIZE_UNLIMITED,
@@ -23,7 +24,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
-
+initializeAnalytics(app)
 export const firestore = initializeFirestore(app, {
   localCache: persistentLocalCache({
     cacheSizeBytes: CACHE_SIZE_UNLIMITED,
