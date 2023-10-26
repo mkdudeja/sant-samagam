@@ -30,6 +30,9 @@ function App() {
   const [locOptions, setLocOptions] = React.useState<Array<string>>([])
   const [depOptions, setDepOptions] = React.useState<Array<string>>([])
   const [phonebook, setPhonebook] = React.useState<Array<IPhonebook>>()
+  const [dataSource, setDataSource] = React.useState<Array<IPhonebook>>(
+    PHONEBOOK as unknown as Array<IPhonebook>,
+  )
 
   const clearFilters = () => {
     setStatus("")
@@ -54,55 +57,55 @@ function App() {
   React.useEffect(() => {
     const queryData = async () => {
       try {
-        return await getDocs(collection(firestore, "phonebook")).then(
+        await getDocs(collection(firestore, "phonebook")).then(
           (querySnapshot) => {
-            return querySnapshot.docs.map((doc) => ({
+            const result = querySnapshot.docs.map((doc) => ({
               ...doc.data(),
               id: doc.id,
             })) as Array<IPhonebook>
+            setDataSource(result)
           },
         )
       } catch (err) {
         console.error("queryData", err)
-        return PHONEBOOK as unknown as Array<IPhonebook>
       }
     }
-
-    const fetchPost = async () => {
-      try {
-        const newData = await queryData()
-        const locationOptions: Record<string, number> = {}
-        const departmentOptions: Record<string, number> = {}
-        newData.forEach((item) => {
-          if (!departmentOptions[item.department]) {
-            departmentOptions[item.department] = 1
-          }
-
-          if (!locationOptions[item.location]) {
-            locationOptions[item.location] = 1
-          }
-        })
-
-        setPhonebook(
-          newData.filter((item) => !!item.location && !!item.department),
-        )
-        setLocOptions(
-          Object.keys(locationOptions)
-            .filter((item) => !!item)
-            .sort(),
-        )
-        setDepOptions(
-          Object.keys(departmentOptions)
-            .filter((item) => !!item)
-            .sort(),
-        )
-      } catch (err) {
-        console.error(err)
-      }
-    }
-
-    fetchPost()
+    queryData()
   }, [])
+
+  React.useEffect(() => {
+    try {
+      const locationOptions: Record<string, number> = {}
+      const departmentOptions: Record<string, number> = {}
+
+      dataSource.forEach((item) => {
+        if (!departmentOptions[item.department]) {
+          departmentOptions[item.department] = 1
+        }
+
+        if (!locationOptions[item.location]) {
+          locationOptions[item.location] = 1
+        }
+      })
+
+      setPhonebook(
+        dataSource.filter((item) => !!item.location && !!item.department),
+      )
+      setLocOptions(
+        Object.keys(locationOptions)
+          .filter((item) => !!item)
+          .sort(),
+      )
+      setDepOptions(
+        Object.keys(departmentOptions)
+          .filter((item) => !!item)
+          .sort(),
+      )
+    } catch (err) {
+      console.error(err)
+      toast.error("An error occured while initializing the eDirectory.")
+    }
+  }, [dataSource])
 
   const renderIntercom = (rowData: Array<Partial<IPhonebook>>) => {
     if (!rowData.length) return

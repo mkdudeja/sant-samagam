@@ -33,8 +33,7 @@ export const LOCATIONS: Array<string> = [
 ]
 
 export const HELP_TEXT = [
-  "** Use STD code 0180 for Direct dial from mobile phones **",
-  "Dial the mobile/landline numbers/extension directly and then press # for fast dialing",
+  "Please press # for fast dialing",
   "For Administration Complex block- Delhi dial 011-47660200/201/202/203",
 ]
 
