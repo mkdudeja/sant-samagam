@@ -107,7 +107,10 @@ function App() {
     }
   }, [dataSource])
 
-  const renderIntercom = (rowData: Array<Partial<IPhonebook>>) => {
+  const renderIntercom = (
+    rowData: Array<Partial<IPhonebook>>,
+    withHeader = false,
+  ) => {
     if (!rowData.length) return
     const renderIntercomRow = (item: Partial<IPhonebook>, level = 0) => {
       const hasExtn = !!item.extn
@@ -147,7 +150,37 @@ function App() {
     }
     return (
       <div className="overflow-x-auto">
-        <table className="min-w-full border border-gray-300 rounded-lg text-sm print:text-xs">
+        <table className="min-w-full divide-y divide-gray-300 border border-gray-300 rounded-lg text-sm print:text-xs">
+          {withHeader && (
+            <thead className="print:table-header-group">
+              <tr>
+                <th
+                  scope="col"
+                  className="px-3 py-1 w-7/12 text-left text-sm font-semibold"
+                >
+                  <div className="justify-between items-center hidden lg:flex print:flex">
+                    Name
+                  </div>
+                  <div className="flex justify-between items-center lg:hidden print:hidden">
+                    <span>Name & Direct</span>
+                    <span>Extn.</span>
+                  </div>
+                </th>
+                <th
+                  scope="col"
+                  className="hidden lg:table-cell print:table-cell px-3 py-1 w-3/12 text-left text-sm font-semibold"
+                >
+                  Direct
+                </th>
+                <th
+                  scope="col"
+                  className="hidden lg:table-cell print:table-cell px-3 py-1 w-2/12 text-right text-sm font-semibold"
+                >
+                  Extn
+                </th>
+              </tr>
+            </thead>
+          )}
           <tbody className="divide-y divide-gray-200 bg-white">
             {rowData.map((item) => [
               renderIntercomRow(item),
@@ -236,7 +269,7 @@ function App() {
                     Name
                   </div>
                   <div className="flex justify-between items-center lg:hidden print:hidden">
-                    <span>Name & Phone </span>
+                    <span>Name & Direct </span>
                     <span>Extn.</span>
                   </div>
                 </th>
@@ -244,7 +277,7 @@ function App() {
                   scope="col"
                   className="hidden lg:table-cell print:table-cell px-3 py-1 w-3/12 text-left text-sm font-semibold"
                 >
-                  Phone
+                  Direct
                 </th>
                 <th
                   scope="col"
@@ -309,62 +342,6 @@ function App() {
     )
   }
 
-  /***********************************************/
-  /***** Printable eDirectory tabular format *****/
-  /***********************************************/
-  const renderLocationPrint = (
-    locationId: string,
-    rowData: Array<IPhonebook>,
-  ) => {
-    const departmentDataSource = groupByDepartment(rowData, department)
-    const departmentDataKeys = Object.keys(departmentDataSource)
-
-    if (!departmentDataKeys.length) return
-
-    return (
-      <div className="text-xs" key={locationId}>
-        <h1 className="text-center font-semibold py-[2px] px-3 border border-gray-200 bg-gray-200">
-          {locationId ?? "NA"}
-        </h1>
-        <div className="overflow-x-auto">
-          <div className="grid grid-cols-4 divide-x divide-y border border-solid">
-            <div className="px-3 py-[2px] text-left font-semibold">Name</div>
-            <div className="px-3 py-[2px] text-left font-semibold">
-              Phone / Extn
-            </div>
-            <div className="px-3 py-[2px] text-left font-semibold">Name</div>
-            <div className="px-3 py-[2px] text-left font-semibold">
-              Phone / Extn
-            </div>
-            {!!departmentDataKeys.length &&
-              Object.keys(departmentDataSource).map((departmentId) => {
-                return (
-                  <React.Fragment key={`${locationId}-${departmentId}`}>
-                    <div className="border-t border-gray-200 bg-gray-100 py-[2px] px-2 text-left text-xs font-semibold col-span-4">
-                      {departmentId ?? "NA"}
-                    </div>
-                    {departmentDataSource[departmentId].map((item) => (
-                      <React.Fragment key={item.id}>
-                        <div className="whitespace-nowrap px-2 py-[2px] text-xs text-left font-normal">
-                          <h4 className="break-words whitespace-normal">
-                            {item.name}
-                          </h4>
-                        </div>
-                        <div className="whitespace-nowrap px-2 py-[2px] text-xs text-left">
-                          {renderPhone(item.phone, item.status)} /{" "}
-                          {renderPhone(item.extn, item.status, false)}
-                        </div>
-                      </React.Fragment>
-                    ))}
-                  </React.Fragment>
-                )
-              })}
-          </div>
-        </div>
-      </div>
-    )
-  }
-
   const renderPhone = (value: string, status: number, dailer = true) => {
     return (
       <div className="inline-flex space-x-1 items-center">
@@ -405,6 +382,153 @@ function App() {
   const copyPhoneno = async (value: string) => {
     await navigator.clipboard.writeText(value)
     toast.success(`${value} - Copied successfully.`)
+  }
+
+  /***********************************************/
+  /***** Printable eDirectory tabular format *****/
+  /***********************************************/
+  const renderIntercomPrint = (
+    rowData: Array<Partial<IPhonebook>>,
+    withHeader = false,
+  ) => {
+    if (!rowData.length) return
+    const renderIntercomRow = (item: Partial<IPhonebook>, level = 0) => {
+      const hasExtn = !!item.extn
+      return (
+        <React.Fragment key={item.name}>
+          <div
+            className={clsx(
+              "whitespace-nowrap px-2 py-[2px] text-xs text-left font-normal",
+              !hasExtn && "col-span-4 bg-gray-100",
+              level && "pl-6",
+            )}
+          >
+            <h4 className="break-words whitespace-normal">{item.name}</h4>
+          </div>
+          {hasExtn && (
+            <div className="flex justify-end items-center whitespace-nowrap px-2 py-[2px] text-xs">
+              {renderPhone(item.phone, item.status)}&nbsp;/
+              {renderPhone(item.extn, item.status, false)}
+            </div>
+          )}
+        </React.Fragment>
+      )
+    }
+
+    return (
+      <div className="text-xs">
+        <div className="overflow-x-auto">
+          <div className="grid grid-cols-4 divide-x divide-y border border-solid">
+            {withHeader && (
+              <React.Fragment>
+                <div className="px-3 py-[2px] text-left font-semibold">
+                  Name
+                </div>
+                <div className="px-3 py-[2px] text-right font-semibold">
+                  Direct / Extn
+                </div>
+                <div className="px-3 py-[2px] text-left font-semibold">
+                  Name
+                </div>
+                <div className="px-3 py-[2px] text-right font-semibold">
+                  Direct / Extn
+                </div>
+              </React.Fragment>
+            )}
+            {rowData.map((item) => [
+              renderIntercomRow(item),
+              ...filterByName(
+                (item.children ?? []) as IPhonebook[],
+                search,
+              )?.map((child) => renderIntercomRow(child, 1)),
+            ])}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  const renderFeaturedPrint = (rowData: Array<Partial<IPhonebook>>) => {
+    if (!rowData.length) return
+    return (
+      <div className="text-xs">
+        <div className="overflow-x-auto">
+          <div className="grid grid-cols-4 divide-x divide-y border border-solid">
+            {rowData.map((item) => (
+              <React.Fragment key={item.name}>
+                <div className="whitespace-nowrap px-2 py-[2px] text-xs text-left font-normal">
+                  <h4 className="break-words whitespace-normal">
+                    <span>{item.name}</span>,&nbsp;
+                    <span className="text-gray-500">{item.designation}</span>
+                  </h4>
+                </div>
+                <div className="whitespace-nowrap px-2 py-[2px] text-xs text-right">
+                  <div className="flex flex-col">
+                    <span>{renderPhone(item.mobile as string, 1)}</span>
+                    {!!item.extn && (
+                      <span>{renderPhone(item.extn as string, 1)}</span>
+                    )}
+                  </div>
+                </div>
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  const renderLocationPrint = (
+    locationId: string,
+    rowData: Array<IPhonebook>,
+  ) => {
+    const departmentDataSource = groupByDepartment(rowData, department)
+    const departmentDataKeys = Object.keys(departmentDataSource)
+
+    if (!departmentDataKeys.length) return
+
+    return (
+      <div className="text-xs" key={locationId}>
+        <h1 className="font-serif text-center font-semibold py-[2px] px-3 border border-gray-200 bg-gray-200">
+          {locationId ?? "NA"}
+        </h1>
+        <div className="overflow-x-auto">
+          <div className="grid grid-cols-4 divide-x divide-y border border-solid">
+            <div className="px-3 py-[2px] text-left font-semibold">Name</div>
+            <div className="px-3 py-[2px] text-right font-semibold">
+              Direct / Extn
+            </div>
+            <div className="px-3 py-[2px] text-left font-semibold">Name</div>
+            <div className="px-3 py-[2px] text-right font-semibold">
+              Direct / Extn
+            </div>
+            {!!departmentDataKeys.length &&
+              Object.keys(departmentDataSource).map((departmentId) => {
+                return (
+                  <React.Fragment key={`${locationId}-${departmentId}`}>
+                    <div className="font-mono border-t border-gray-200 bg-gray-100 py-[2px] px-2 text-left text-xs font-semibold col-span-4">
+                      {departmentId ?? "NA"}
+                    </div>
+                    {departmentDataSource[departmentId].map((item) => (
+                      <React.Fragment key={item.id}>
+                        <div className="whitespace-nowrap px-2 py-[2px] text-xs text-left font-normal">
+                          <h4 className="break-words whitespace-normal">
+                            {item.name}
+                          </h4>
+                        </div>
+                        <div className="flex items-center justify-end whitespace-nowrap px-2 py-[2px] text-xs">
+                          {renderPhone(item.phone, item.status)}&nbsp;/
+                          {renderPhone(item.extn, item.status, false)}
+                        </div>
+                      </React.Fragment>
+                    ))}
+                  </React.Fragment>
+                )
+              })}
+          </div>
+        </div>
+      </div>
+    )
   }
 
   if (!phonebook || !Array.isArray(phonebook)) {
@@ -581,57 +705,85 @@ function App() {
             </ul>
           )}
 
-          {/* featured extension primary */}
-          {!hasListFilters && !!filteredFeaturedExtns.length && (
-            <div className="">{renderIntercom(filteredFeaturedPrimary)}</div>
-          )}
-
-          {/* featured extension */}
           {!hasListFilters && !!filteredFeaturedExtns.length && (
             <div className="space-y-0">
-              <h2 className="text-center text-sm lg:text-md font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
-                Essential Services
-              </h2>
-              {renderIntercom(filteredFeaturedExtns)}
+              {renderIntercom(filteredFeaturedPrimary)}
             </div>
           )}
 
-          {/* featured contacts */}
-          {!hasListFilters && !!filteredFeaturedContacts.length && (
-            <div className="space-y-0">
-              <h2 className="text-center text-sm lg:text-md font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
-                Samagam Committee
-              </h2>
-              {renderFeatured(filteredFeaturedContacts)}
-            </div>
-          )}
+          {/* non-printable rendering */}
+          <div className="flex flex-col space-y-2 print:hidden">
+            {!hasListFilters && !!filteredFeaturedExtns.length && (
+              <div className="space-y-0">
+                <h2 className="text-center text-sm lg:text-md font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
+                  Essential Services
+                </h2>
+                {renderIntercom(filteredFeaturedExtns, true)}
+              </div>
+            )}
 
-          {/* ICT members */}
-          {!hasListFilters && !!filteredICTContacts.length && (
-            <div className="space-y-0">
-              <h2 className="text-center text-sm lg:text-md font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
-                Dr. Parveen Khullar Ji (Member In charge ICT)
-              </h2>
-              {renderFeatured(ICT_CONTACTS)}
-            </div>
-          )}
+            {!hasListFilters && !!filteredFeaturedContacts.length && (
+              <div className="space-y-0">
+                <h2 className="text-center text-sm lg:text-md font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
+                  Samagam Committee
+                </h2>
+                {renderFeatured(filteredFeaturedContacts)}
+              </div>
+            )}
 
-          {/* location, department & contacts */}
-          <div className="space-y-1 print:hidden">
-            {/*  data grids */}
-            {!!locationDataKeys.length &&
-              locationDataKeys.map((key) =>
-                renderLocation(key, locationDataSource[key]),
-              )}
-          </div>
+            {!hasListFilters && !!filteredICTContacts.length && (
+              <div className="space-y-0">
+                <h2 className="text-center text-sm lg:text-md font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
+                  Dr. Parveen Khullar Ji (Member In charge ICT)
+                </h2>
+                {renderFeatured(filteredICTContacts)}
+              </div>
+            )}
 
-          {!isMobile && (
-            <div className="hidden space-y-1 flex-col print:flex">
-              {/*  data grids */}
+            <div className="space-y-1">
               {!!locationDataKeys.length &&
                 locationDataKeys.map((key) =>
-                  renderLocationPrint(key, locationDataSource[key]),
+                  renderLocation(key, locationDataSource[key]),
                 )}
+            </div>
+          </div>
+
+          {/* printable rendering */}
+          {!isMobile && (
+            <div className="hidden flex-col space-y-2 print:flex">
+              {!hasListFilters && !!filteredFeaturedExtns.length && (
+                <div className="space-y-0">
+                  <h2 className="text-center text-sm lg:text-md font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
+                    Essential Services
+                  </h2>
+                  {renderIntercomPrint(filteredFeaturedExtns, true)}
+                </div>
+              )}
+
+              {!hasListFilters && !!filteredFeaturedContacts.length && (
+                <div className="space-y-0">
+                  <h2 className="text-center text-sm lg:text-md font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
+                    Samagam Committee
+                  </h2>
+                  {renderFeaturedPrint(filteredFeaturedContacts)}
+                </div>
+              )}
+
+              {!hasListFilters && !!filteredICTContacts.length && (
+                <div className="space-y-0">
+                  <h2 className="text-center text-sm lg:text-md font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
+                    Dr. Parveen Khullar Ji (Member In charge ICT)
+                  </h2>
+                  {renderFeaturedPrint(filteredICTContacts)}
+                </div>
+              )}
+
+              <div className="space-y-1">
+                {!!locationDataKeys.length &&
+                  locationDataKeys.map((key) =>
+                    renderLocationPrint(key, locationDataSource[key]),
+                  )}
+              </div>
             </div>
           )}
         </div>
