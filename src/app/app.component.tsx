@@ -792,7 +792,7 @@ function App() {
             {!hasListFilters && !!filteredICTContacts.length && (
               <div className="space-y-0">
                 <h2 className="text-center text-sm lg:text-md font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
-                  Dr. Parveen Khullar Ji (Member In charge ICT)
+                  Internet, Computer & Telecom
                 </h2>
                 {renderFeatured(filteredICTContacts)}
               </div>
@@ -830,7 +830,7 @@ function App() {
               {!hasListFilters && !!filteredICTContacts.length && (
                 <div className="space-y-0">
                   <h2 className="text-center text-sm lg:text-md font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
-                    Dr. Parveen Khullar Ji (Member In charge ICT)
+                    Internet, Computer & Telecom
                   </h2>
                   {renderFeaturedPrint(filteredICTContacts)}
                 </div>
