@@ -36,9 +36,9 @@ registerSW({
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Offline />
-    {/* <App />
+    {/* <Offline /> */}
+    <App />
     <ScrollTop />
-    <ToastContainer toastClassName="text-sm" theme="colored" /> */}
+    <ToastContainer toastClassName="text-sm" theme="colored" />
   </React.StrictMode>,
 )
