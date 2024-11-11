@@ -147,7 +147,6 @@ function App() {
 
           setLSItem(KEY_PHONEBOOK, result)
           setLSItem(KEY_LASTSYNCED, lastUpdated)
-          console.log("result", result)
           setDataSource(result)
         }
       } catch (err) {
@@ -628,10 +627,8 @@ function App() {
 
   const hasListFilters = department || location || status
   const hasFilters = search || hasListFilters
-  const locationDataSource = groupByLocation(
-    filterPhonebook(phonebook, search, status),
-    location,
-  )
+  const filteredPhonebook = filterPhonebook(phonebook, search, status)
+  const locationDataSource = groupByLocation(filteredPhonebook, location)
   const locationDataKeys = Object.keys(locationDataSource)
   const filteredFeaturedPrimary = filterByName(
     FEATURED_EXTNS_PRIMARY as IPhonebook[],
@@ -646,6 +643,8 @@ function App() {
     search,
   )
   const filteredICTContacts = filterByName(ICT_CONTACTS as IPhonebook[], search)
+  const activeCount = filteredPhonebook.filter((i) => i.status).length
+  const inactiveCount = filteredPhonebook.length - activeCount
 
   return (
     <div className="min-h-full">
@@ -777,10 +776,12 @@ function App() {
               <div className="flex space-x-1 items-center">
                 <span className="flex w-3 h-3 bg-blue-700"></span>
                 <span>Active</span>
+                <small>({activeCount})</small>
               </div>
               <div className="flex space-x-1 items-center">
                 <span className="flex w-3 h-3 bg-red-700"></span>
                 <span>Inactive</span>
+                <small>({inactiveCount})</small>
               </div>
             </div>
           </div>
