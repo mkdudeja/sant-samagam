@@ -16,6 +16,6 @@
   },
   "workbench.iconTheme": "material-icon-theme",
   "editor.codeActionsOnSave": {
-    "source.organizeImports": true
+    "source.organizeImports": "explicit"
   }
 }

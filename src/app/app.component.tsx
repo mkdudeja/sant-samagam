@@ -1,4 +1,5 @@
 import clsx from "clsx"
+import { getAnalytics, logEvent } from "firebase/analytics"
 import { collection, doc, getDoc, getDocs } from "firebase/firestore"
 import React from "react"
 import { toast } from "react-toastify"
@@ -18,6 +19,8 @@ import {
   HELP_TEXT,
   ICT_CONTACTS,
 } from "./shared/config"
+
+const ANALYTICS = getAnalytics()
 
 const KEY_PHONEBOOK = "eDirectory_phonebook"
 const KEY_LASTSYNCED = "eDirectory_synced"
@@ -84,6 +87,30 @@ function App() {
   }, [])
 
   const isMobile = width < 1024
+
+  React.useEffect(() => {
+    function logHandler(event) {
+      const target = event.target
+
+      // Check if the clicked element is a tel link
+      if (
+        target.tagName === "A" &&
+        target.getAttribute("href")?.startsWith("tel:")
+      ) {
+        // Log the custom event in Firebase Analytics
+        logEvent(ANALYTICS, "click_tel_link", {
+          phone_number: target.getAttribute("href"),
+          link_text: target.innerText,
+        })
+      }
+    }
+
+    // Add an event listener to the document or a parent element
+    document.addEventListener("click", logHandler, false)
+    return () => {
+      document.removeEventListener("click", logHandler, false)
+    }
+  }, [])
 
   React.useEffect(() => {
     const lastSynced = getLSItem<string>(KEY_LASTSYNCED)
@@ -440,6 +467,12 @@ function App() {
   const copyPhoneno = async (value: string) => {
     await navigator.clipboard.writeText(value)
     toast.success(`${value} - Copied successfully.`)
+
+    // log custom event
+    logEvent(ANALYTICS, "copyPhoneno", {
+      value: value,
+      userAgent: navigator.userAgent,
+    })
   }
 
   /***********************************************/
