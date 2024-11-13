@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import clsx from "clsx"
 import { getAnalytics, logEvent } from "firebase/analytics"
 import { collection, doc, getDoc, getDocs } from "firebase/firestore"
@@ -202,7 +203,7 @@ function App() {
         <tr key={item.name}>
           <td
             className={clsx(
-              "whitespace-nowrap py-1 px-2 lg:py-1 w-6/12",
+              "py-1 px-2 lg:py-1 w-6/12",
               !hasExtn && "bg-gray-100",
             )}
             colSpan={hasExtn ? 1 : 3}
@@ -287,7 +288,7 @@ function App() {
           <tbody className="divide-y divide-gray-200 bg-white">
             {rowData.map((item) => (
               <tr key={item.name}>
-                <td className="whitespace-nowrap py-1 px-2 lg:py-1 w-6/12">
+                <td className="py-1 px-2 lg:py-1 w-6/12">
                   <div className="flex flex-col">
                     <h4 className="break-words whitespace-normal">
                       {item.name}
@@ -405,7 +406,7 @@ function App() {
         </tr>
         {rowData.map((item, index) => (
           <tr key={item.id}>
-            <td className="whitespace-nowrap py-1 pl-4 pr-3 w-7/12 text-sm text-left font-normal">
+            <td className="py-1 pl-4 pr-3 w-7/12 text-sm text-left font-normal">
               <div className="flex flex-col">
                 <h4 className="break-words whitespace-normal">{item.name}</h4>
                 <div className="flex justify-between items-center lg:hidden print:hidden">
@@ -488,7 +489,7 @@ function App() {
         <React.Fragment key={item.name}>
           <div
             className={clsx(
-              "whitespace-nowrap px-2 py-[2px] text-xs text-left font-normal",
+              "px-2 py-[2px] text-xs text-left font-normal",
               !hasExtn && "col-span-4 bg-gray-100",
               level && "pl-6",
             )}
@@ -496,7 +497,7 @@ function App() {
             <h4 className="break-words whitespace-normal">{item.name}</h4>
           </div>
           {hasExtn && (
-            <div className="flex justify-end items-center whitespace-nowrap px-2 py-[2px] text-xs">
+            <div className="flex justify-end items-center px-2 py-[2px] text-xs">
               {renderPhone(item.phone, item.status)}&nbsp;/
               {renderPhone(item.extn, item.status, false)}
             </div>
@@ -546,13 +547,13 @@ function App() {
           <div className="grid grid-cols-4 divide-x divide-y border border-solid">
             {rowData.map((item) => (
               <React.Fragment key={item.name}>
-                <div className="whitespace-nowrap px-2 py-[2px] text-xs text-left font-normal">
+                <div className="px-2 py-[2px] text-xs text-left font-normal">
                   <h4 className="break-words whitespace-normal">
                     <span>{item.name}</span>,&nbsp;
                     <span className="text-gray-500">{item.designation}</span>
                   </h4>
                 </div>
-                <div className="whitespace-nowrap px-2 py-[2px] text-xs text-right">
+                <div className="px-2 py-[2px] text-xs text-right">
                   <div className="flex flex-col">
                     <span>{renderPhone(item.mobile as string, 1)}</span>
                     {!!item.extn && (
@@ -601,12 +602,12 @@ function App() {
                     </div>
                     {departmentDataSource[departmentId].map((item) => (
                       <React.Fragment key={item.id}>
-                        <div className="whitespace-nowrap px-2 py-[2px] text-xs text-left font-normal">
+                        <div className="px-2 py-[2px] text-xs text-left font-normal">
                           <h4 className="break-words whitespace-normal">
                             {item.name}
                           </h4>
                         </div>
-                        <div className="flex items-center justify-end whitespace-nowrap px-2 py-[2px] text-xs">
+                        <div className="flex items-center justify-end px-2 py-[2px] text-xs">
                           {renderPhone(item.phone, item.status)}&nbsp;/
                           {renderPhone(item.extn, item.status, false)}
                         </div>
@@ -807,7 +808,7 @@ function App() {
           <div className="flex flex-col space-y-2 print:hidden">
             {!hasListFilters && !!filteredFeaturedExtns.length && (
               <div className="space-y-0">
-                <h2 className="text-center text-sm lg:text-md font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
+                <h2 className="text-center text-md lg:text-l font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
                   Essential Services
                 </h2>
                 {renderIntercom(filteredFeaturedExtns, true)}
@@ -816,21 +817,21 @@ function App() {
 
             {!hasListFilters && !!filteredFeaturedContacts.length && (
               <div className="space-y-0">
-                <h2 className="text-center text-sm lg:text-md font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
+                <h2 className="text-center text-md lg:text-l font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
                   Samagam Committee
                 </h2>
                 {renderFeatured(filteredFeaturedContacts)}
               </div>
             )}
 
-            {!hasListFilters && !!filteredICTContacts.length && (
+            {/* {!hasListFilters && !!filteredICTContacts.length && (
               <div className="space-y-0">
-                <h2 className="text-center text-sm lg:text-md font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
+                <h2 className="text-center text-md lg:text-l font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
                   Internet, Computer & Telecom
                 </h2>
                 {renderFeatured(filteredICTContacts)}
               </div>
-            )}
+            )} */}
 
             <div className="space-y-1">
               {!!locationDataKeys.length &&
@@ -845,7 +846,7 @@ function App() {
             <div className="hidden flex-col space-y-2 print:flex">
               {!hasListFilters && !!filteredFeaturedExtns.length && (
                 <div className="space-y-0">
-                  <h2 className="text-center text-sm lg:text-md font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
+                  <h2 className="text-center text-md lg:text-l font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
                     Essential Services
                   </h2>
                   {renderIntercomPrint(filteredFeaturedExtns, true)}
@@ -854,21 +855,21 @@ function App() {
 
               {!hasListFilters && !!filteredFeaturedContacts.length && (
                 <div className="space-y-0">
-                  <h2 className="text-center text-sm lg:text-md font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
+                  <h2 className="text-center text-md lg:text-l font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
                     Samagam Committee
                   </h2>
                   {renderFeaturedPrint(filteredFeaturedContacts)}
                 </div>
               )}
 
-              {!hasListFilters && !!filteredICTContacts.length && (
+              {/* {!hasListFilters && !!filteredICTContacts.length && (
                 <div className="space-y-0">
-                  <h2 className="text-center text-sm lg:text-md font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
+                  <h2 className="text-center text-md lg:text-l font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
                     Internet, Computer & Telecom
                   </h2>
                   {renderFeaturedPrint(filteredICTContacts)}
                 </div>
-              )}
+              )} */}
 
               <div className="space-y-1">
                 {!!locationDataKeys.length &&

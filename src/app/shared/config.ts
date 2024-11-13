@@ -33,8 +33,9 @@ export const LOCATIONS: Array<string> = [
 ]
 
 export const HELP_TEXT = [
-  "Please press # for fast dialing",
-  "For Administration Complex block- Delhi dial 011-47660200/201/202/203",
+  "Dial 0 for Direct Calling",
+  "Press # for fast dialing after dialing number ",
+  "For Administration Complex block - Delhi dial 011-476600200/201/202/203",
 ]
 
 export const FEATURED_EXTNS_PRIMARY: Array<Partial<IPhonebook>> = [
@@ -47,6 +48,17 @@ export const FEATURED_EXTNS_PRIMARY: Array<Partial<IPhonebook>> = [
 ]
 
 export const FEATURED_EXTNS: Array<Partial<IPhonebook>> = [
+  {
+    name: "Announcement / Sound",
+    children: [
+      {
+        name: "- Ground A",
+        phone: "0180-6648576",
+        extn: "576",
+        status: 1,
+      },
+    ],
+  },
   {
     name: "Electricity",
     children: [
