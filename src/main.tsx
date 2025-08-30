@@ -1,8 +1,9 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
-import { toast } from "react-toastify"
+import { toast, ToastContainer } from "react-toastify"
 import { registerSW } from "virtual:pwa-register"
-import Offline from "./app/offline.component"
+import App from "./app/app.component"
+import ScrollTop from "./app/scroll-top.component"
 
 import "react-toastify/dist/ReactToastify.css"
 import "./assets/styles/style.css"
@@ -36,9 +37,9 @@ registerSW({
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Offline />
-    {/* <App /> */}
-    {/* <ScrollTop /> */}
-    {/* <ToastContainer toastClassName="text-sm" theme="colored" /> */}
+    {/* <Offline /> */}
+    <App />
+    <ScrollTop />
+    <ToastContainer toastClassName="text-sm" theme="colored" />
   </React.StrictMode>,
 )
