@@ -24,7 +24,7 @@ export default defineConfig({
         scope: "/",
         start_url: "/",
         short_name: "eDirectory",
-        description: "eDirectory | 76th Annual Nirankari Sant Samagam",
+        description: "eDirectory | 78th Annual Nirankari Sant Samagam",
         name: "eDirectory | Sant Samagam",
         icons: [
           {
