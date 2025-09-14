@@ -9,14 +9,29 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: "autoUpdate",
-      selfDestroying: true,
       // add this to cache all the imports
       workbox: {
-        globPatterns: ["**/*"],
+        // Cache all your static assets
+        globPatterns: [
+          "**/*.{js,css,html,ico,png,svg,webp,jpg,jpeg,woff,woff2}",
+        ],
+        // Important for Firebase offline
+        cleanupOutdatedCaches: true,
+        skipWaiting: true,
+        clientsClaim: true,
+        // Handle navigation fallback for SPA
+        navigateFallback: "/index.html",
+        navigateFallbackDenylist: [/^\/_/, /\/[^/?]+\.[^/]+$/],
       },
       // add this to cache all the
       // static assets in the public folder
-      includeAssets: ["**/*"],
+      includeAssets: [
+        "favicon.ico",
+        "apple-touch-icon.png",
+        "pwa-*.png",
+        "maskable-icon-*.png",
+        "**/*.{js,css,html,ico,png,svg,webp,jpg,jpeg,woff,woff2}",
+      ],
       manifest: {
         theme_color: "#87CEEB",
         background_color: "#87CEEB",
@@ -26,6 +41,7 @@ export default defineConfig({
         short_name: "eDirectory",
         description: "eDirectory | 78th Annual Nirankari Sant Samagam",
         name: "eDirectory | Sant Samagam",
+        orientation: "portrait-primary",
         icons: [
           {
             src: "pwa-64x64.png",
@@ -50,6 +66,21 @@ export default defineConfig({
             purpose: "maskable",
           },
         ],
+        // Add shortcuts for quick access
+        shortcuts: [
+          {
+            name: "eDirectory",
+            short_name: "eDirectory",
+            description: "eDirectory | 78th Annual Nirankari Sant Samagam",
+            url: "/",
+            icons: [
+              {
+                src: "pwa-192x192.png",
+                sizes: "192x192",
+              },
+            ],
+          },
+        ],
       },
     }),
     checker({
@@ -65,5 +96,14 @@ export default defineConfig({
   build: {
     outDir: "build",
     sourcemap: true,
+    // Optimize bundle for Firebase
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ["react", "react-dom"],
+          firebase: ["firebase/app", "firebase/firestore", "firebase/auth"],
+        },
+      },
+    },
   },
 })
