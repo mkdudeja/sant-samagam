@@ -188,13 +188,7 @@ export const FEATURED_CONTACTS: Array<Partial<IPhonebook>> = [
   {
     name: "Rev. Kishan Dass Ji",
     designation: "Member",
-    mobile: "9266629816",
-    extn: "9810792829",
-  },
-  {
-    name: "Rev.  Darshan Singh Ji",
-    designation: "Member",
-    mobile: "9266629816",
+    mobile: "9810792829",
   },
   {
     name: "Rev. Manmohan Chhabra Ji",
@@ -207,6 +201,12 @@ export const FEATURED_CONTACTS: Array<Partial<IPhonebook>> = [
     designation: "Member",
     mobile: "9266629804",
     extn: "9818060706",
+  },
+  {
+    name: "Rev.  Darshan Singh Ji",
+    designation: "Member",
+    mobile: "7007740067",
+    extn: "9450168773",
   },
   {
     name: "Rev. H.S. Guleria Ji",
