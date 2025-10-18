@@ -41,7 +41,7 @@ export const HELP_TEXT = [
 export const FEATURED_EXTNS_PRIMARY: Array<Partial<IPhonebook>> = [
   {
     name: "Service Helpdesk",
-    phone: "0180-6648541",
+    phone: "0180-6622557",
     extn: "400",
     status: 1,
   },
