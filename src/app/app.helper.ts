@@ -5,14 +5,23 @@ export function classNames(...classes: Array<string>) {
   return classes.filter(Boolean).join(" ")
 }
 
+function isMatching(item: Partial<IPhonebook>, search: string) {
+  const regex = new RegExp(`${search ?? ""}`, "i")
+  return (
+    regex.test(item.name) ||
+    (item.extn ?? "").toString().includes(search) ||
+    (item.phone ?? "").toString().includes(search) ||
+    (item.mobile ?? "").toString().includes(search)
+  )
+}
+
 export function filterByName(data: Array<IPhonebook>, name: string) {
-  const regex = new RegExp(`${name ?? ""}`, "i")
   return data.filter((item) => {
     if (item.children) {
-      return item.children.some((child) => regex.test(child.name))
+      return item.children.some((child) => isMatching(child, name))
     }
 
-    return regex.test(item.name)
+    return isMatching(item, name)
   })
 }
 
