@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import clsx from "clsx"
-import { getAnalytics, logEvent } from "firebase/analytics"
 import { collection, doc, getDoc, getDocs } from "firebase/firestore"
 import React from "react"
 import { toast } from "react-toastify"
 import { firestore } from "../firebase/firebase"
 import { IPhonebook } from "../interfaces/shared.interface"
+import { EventParams, syncUserProperties, track } from "./shared/analytics"
 import {
   filterByName,
   filterPhonebook,
@@ -24,7 +24,30 @@ import {
 import { useInstallPrompt } from "./shared/use-install-prompt"
 import { useTheme } from "./shared/use-theme"
 
-const ANALYTICS = getAnalytics()
+// which number was acted on, and from where, for contact_call / contact_copy
+type ContactKind = "phone" | "extn" | "mobile"
+type ContactSection =
+  "essential_services" | "samagam_committee" | "directory" | "print"
+interface ContactMeta extends EventParams {
+  contact_name?: string
+  department?: string
+  location?: string
+  number_kind: ContactKind
+  section: ContactSection
+}
+function contactMeta(
+  item: Partial<IPhonebook>,
+  kind: ContactKind,
+  section: ContactSection,
+): ContactMeta {
+  return {
+    contact_name: item.name,
+    department: item.department,
+    location: item.location,
+    number_kind: kind,
+    section,
+  }
+}
 
 const KEY_PHONEBOOK = "eDirectory_phonebook"
 const KEY_LASTSYNCED = "eDirectory_synced"
@@ -79,10 +102,39 @@ function App() {
     React.useState<Array<IPhonebook>>(getInitialValue)
 
   const clearFilters = () => {
+    track("filter_clear")
     setStatus("")
     setSearch("")
     setLocation("")
     setDepartment("")
+  }
+
+  const onFilterChange =
+    (filter: "department" | "location" | "status") => (value: string) => {
+      track("filter_change", {
+        filter,
+        value: value || "(cleared)",
+      })
+      if (filter === "department") setDepartment(value)
+      if (filter === "location") setLocation(value)
+      if (filter === "status") setStatus(value)
+    }
+
+  const onToggleTheme = () => {
+    track("theme_toggle", { to: isDark ? "light" : "dark" })
+    toggleTheme()
+    // user property must follow the DOM class, which the theme effect sets
+    window.setTimeout(syncUserProperties, 0)
+  }
+
+  const onPrint = () => {
+    track("print_click")
+    window.print()
+  }
+
+  const onInstallClick = () => {
+    track("install_button_click", { install_mode: installPrompt.mode })
+    installPrompt.show()
   }
 
   React.useEffect(() => {
@@ -101,30 +153,6 @@ function App() {
   }, [])
 
   const isMobile = width < 1024
-
-  React.useEffect(() => {
-    function logHandler(event) {
-      const target = event.target
-
-      // Check if the clicked element is a tel link
-      if (
-        target.tagName === "A" &&
-        target.getAttribute("href")?.startsWith("tel:")
-      ) {
-        // Log the custom event in Firebase Analytics
-        logEvent(ANALYTICS, "click_tel_link", {
-          phone_number: target.getAttribute("href"),
-          link_text: target.innerText,
-        })
-      }
-    }
-
-    // Add an event listener to the document or a parent element
-    document.addEventListener("click", logHandler, false)
-    return () => {
-      document.removeEventListener("click", logHandler, false)
-    }
-  }, [])
 
   React.useEffect(() => {
     const lastSynced = getLSItem<string>(KEY_LASTSYNCED)
@@ -205,6 +233,17 @@ function App() {
     }
   }, [dataSource])
 
+  // debounced so one event per typed query, not per keystroke. GA4's
+  // reserved `search` event, so it also lands in the standard report.
+  React.useEffect(() => {
+    const term = search.trim()
+    if (!term) return
+    const timer = window.setTimeout(() => {
+      track("search", { search_term: term })
+    }, 800)
+    return () => window.clearTimeout(timer)
+  }, [search])
+
   const renderIntercom = (
     rowData: Array<Partial<IPhonebook>>,
     withHeader = false,
@@ -226,8 +265,22 @@ function App() {
               {hasExtn && (
                 <>
                   <div className="flex justify-between items-center lg:hidden print:hidden">
-                    <span>{renderPhone(item.phone, item.status)} </span>
-                    <span>{renderPhone(item.extn, item.status, false)}</span>
+                    <span>
+                      {renderPhone(
+                        item.phone,
+                        item.status,
+                        true,
+                        contactMeta(item, "phone", "essential_services"),
+                      )}{" "}
+                    </span>
+                    <span>
+                      {renderPhone(
+                        item.extn,
+                        item.status,
+                        false,
+                        contactMeta(item, "extn", "essential_services"),
+                      )}
+                    </span>
                   </div>
                 </>
               )}
@@ -236,10 +289,20 @@ function App() {
           {hasExtn && (
             <>
               <td className="hidden lg:table-cell print:table-cell whitespace-nowrap px-3 py-1 w-4/12 text-left">
-                {renderPhone(item.phone, item.status)}
+                {renderPhone(
+                  item.phone,
+                  item.status,
+                  true,
+                  contactMeta(item, "phone", "essential_services"),
+                )}
               </td>
               <td className="hidden lg:table-cell print:table-cell whitespace-nowrap px-3 py-1 w-2/12 text-right">
-                {renderPhone(item.extn, item.status, false)}
+                {renderPhone(
+                  item.extn,
+                  item.status,
+                  false,
+                  contactMeta(item, "extn", "essential_services"),
+                )}
               </td>
             </>
           )}
@@ -311,9 +374,23 @@ function App() {
                         {item.designation}
                       </span>
                       <div className="flex flex-col">
-                        <span>{renderPhone(item.mobile as string, 1)}</span>
+                        <span>
+                          {renderPhone(
+                            item.mobile as string,
+                            1,
+                            true,
+                            contactMeta(item, "mobile", "samagam_committee"),
+                          )}
+                        </span>
                         {!!item.extn && (
-                          <span>{renderPhone(item.extn as string, 1)}</span>
+                          <span>
+                            {renderPhone(
+                              item.extn as string,
+                              1,
+                              true,
+                              contactMeta(item, "extn", "samagam_committee"),
+                            )}
+                          </span>
                         )}
                       </div>
                     </div>
@@ -324,16 +401,43 @@ function App() {
                 </td>
                 <td className="hidden lg:table-cell print:table-cell whitespace-nowrap px-2 py-1 w-2/12 text-right">
                   <div className="flex flex-col print:hidden">
-                    <span>{renderPhone(item.mobile as string, 1)}</span>
+                    <span>
+                      {renderPhone(
+                        item.mobile as string,
+                        1,
+                        true,
+                        contactMeta(item, "mobile", "samagam_committee"),
+                      )}
+                    </span>
                     {!!item.extn && (
-                      <span>{renderPhone(item.extn as string, 1)}</span>
+                      <span>
+                        {renderPhone(
+                          item.extn as string,
+                          1,
+                          true,
+                          contactMeta(item, "extn", "samagam_committee"),
+                        )}
+                      </span>
                     )}
                   </div>
                   <div className="hidden flex-row justify-end print:flex">
-                    <span>{renderPhone(item.mobile as string, 1)}</span>
+                    <span>
+                      {renderPhone(
+                        item.mobile as string,
+                        1,
+                        true,
+                        contactMeta(item, "mobile", "samagam_committee"),
+                      )}
+                    </span>
                     {!!item.extn && (
                       <span>
-                        &nbsp;/&nbsp;{renderPhone(item.extn as string, 1)}
+                        &nbsp;/&nbsp;
+                        {renderPhone(
+                          item.extn as string,
+                          1,
+                          true,
+                          contactMeta(item, "extn", "samagam_committee"),
+                        )}
                       </span>
                     )}
                   </div>
@@ -425,16 +529,40 @@ function App() {
               <div className="flex flex-col">
                 <h4 className="break-words whitespace-normal">{item.name}</h4>
                 <div className="flex justify-between items-center lg:hidden print:hidden">
-                  <span>{renderPhone(item.phone, item.status)} </span>
-                  <span>{renderPhone(item.extn, item.status, false)}</span>
+                  <span>
+                    {renderPhone(
+                      item.phone,
+                      item.status,
+                      true,
+                      contactMeta(item, "phone", "directory"),
+                    )}{" "}
+                  </span>
+                  <span>
+                    {renderPhone(
+                      item.extn,
+                      item.status,
+                      false,
+                      contactMeta(item, "extn", "directory"),
+                    )}
+                  </span>
                 </div>
               </div>
             </td>
             <td className="hidden lg:table-cell print:table-cell whitespace-nowrap px-3 py-1 w-3/12 text-sm text-left">
-              {renderPhone(item.phone, item.status)}
+              {renderPhone(
+                item.phone,
+                item.status,
+                true,
+                contactMeta(item, "phone", "directory"),
+              )}
             </td>
             <td className="hidden lg:table-cell print:table-cell whitespace-nowrap px-3 py-1 w-2/12 text-sm text-right">
-              {renderPhone(item.extn, item.status, false)}
+              {renderPhone(
+                item.extn,
+                item.status,
+                false,
+                contactMeta(item, "extn", "directory"),
+              )}
             </td>
           </tr>
         ))}
@@ -442,10 +570,18 @@ function App() {
     )
   }
 
-  const renderPhone = (value: string, status: number, dailer = true) => {
+  const renderPhone = (
+    value: string,
+    status: number,
+    dailer = true,
+    meta?: ContactMeta,
+  ) => {
     return (
       <div className="inline-flex space-x-1 items-center">
-        <button className="print:hidden" onClick={() => copyPhoneno(value)}>
+        <button
+          className="print:hidden"
+          onClick={() => copyPhoneno(value, meta)}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -465,6 +601,7 @@ function App() {
           <a
             href={`tel:${value}`}
             target="_blank"
+            onClick={() => track("contact_call", meta)}
             className={clsx(
               status
                 ? "text-blue-700 dark:text-blue-400"
@@ -489,15 +626,14 @@ function App() {
     )
   }
 
-  const copyPhoneno = async (value: string) => {
-    await navigator.clipboard.writeText(value)
-    toast.success(`${value} - Copied successfully.`)
-
-    // log custom event
-    logEvent(ANALYTICS, "copyPhoneno", {
-      value: value,
-      userAgent: navigator.userAgent,
-    })
+  const copyPhoneno = async (value: string, meta?: ContactMeta) => {
+    try {
+      await navigator.clipboard.writeText(value)
+      toast.success(`${value} - Copied successfully.`)
+      track("contact_copy", meta)
+    } catch {
+      toast.error("Could not copy. Long-press the number instead.")
+    }
   }
 
   /***********************************************/
@@ -523,8 +659,19 @@ function App() {
           </div>
           {hasExtn && (
             <div className="flex justify-end items-center px-2 py-[2px] text-xs">
-              {renderPhone(item.phone, item.status)}&nbsp;/
-              {renderPhone(item.extn, item.status, false)}
+              {renderPhone(
+                item.phone,
+                item.status,
+                true,
+                contactMeta(item, "phone", "print"),
+              )}
+              &nbsp;/
+              {renderPhone(
+                item.extn,
+                item.status,
+                false,
+                contactMeta(item, "extn", "print"),
+              )}
             </div>
           )}
         </React.Fragment>
@@ -582,9 +729,23 @@ function App() {
                 </div>
                 <div className="px-2 py-[2px] text-xs text-right">
                   <div className="flex flex-col">
-                    <span>{renderPhone(item.mobile as string, 1)}</span>
+                    <span>
+                      {renderPhone(
+                        item.mobile as string,
+                        1,
+                        true,
+                        contactMeta(item, "mobile", "print"),
+                      )}
+                    </span>
                     {!!item.extn && (
-                      <span>{renderPhone(item.extn as string, 1)}</span>
+                      <span>
+                        {renderPhone(
+                          item.extn as string,
+                          1,
+                          true,
+                          contactMeta(item, "extn", "print"),
+                        )}
+                      </span>
                     )}
                   </div>
                 </div>
@@ -635,8 +796,19 @@ function App() {
                           </h4>
                         </div>
                         <div className="flex items-center justify-end px-2 py-[2px] text-xs">
-                          {renderPhone(item.phone, item.status)}&nbsp;/
-                          {renderPhone(item.extn, item.status, false)}
+                          {renderPhone(
+                            item.phone,
+                            item.status,
+                            true,
+                            contactMeta(item, "phone", "print"),
+                          )}
+                          &nbsp;/
+                          {renderPhone(
+                            item.extn,
+                            item.status,
+                            false,
+                            contactMeta(item, "extn", "print"),
+                          )}
                         </div>
                       </React.Fragment>
                     ))}
@@ -690,7 +862,7 @@ function App() {
             {installPrompt.available && (
               <button
                 type="button"
-                onClick={installPrompt.show}
+                onClick={onInstallClick}
                 title="Add to home screen"
                 aria-label="Add to home screen"
                 className="cursor rounded p-1 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-indigo-400"
@@ -714,7 +886,7 @@ function App() {
             )}
             <button
               type="button"
-              onClick={toggleTheme}
+              onClick={onToggleTheme}
               title={isDark ? "Switch to light mode" : "Switch to dark mode"}
               aria-label={
                 isDark ? "Switch to light mode" : "Switch to dark mode"
@@ -750,7 +922,7 @@ function App() {
             {!isMobile && (
               <button
                 type="button"
-                onClick={window.print}
+                onClick={onPrint}
                 className="cursor rounded bg-indigo-600 dark:bg-indigo-500 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 dark:hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-indigo-400"
               >
                 Print
@@ -795,7 +967,9 @@ function App() {
                   <select
                     id="department"
                     value={department}
-                    onChange={(e) => setDepartment(e.target.value)}
+                    onChange={(e) =>
+                      onFilterChange("department")(e.target.value)
+                    }
                     className="block w-full rounded-md border-0 dark:bg-gray-800 dark:text-gray-100 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-indigo-400 sm:max-w-xs sm:text-sm sm:leading-6"
                   >
                     <option value="">Select</option>
@@ -819,7 +993,7 @@ function App() {
                   <select
                     id="location"
                     value={location}
-                    onChange={(e) => setLocation(e.target.value)}
+                    onChange={(e) => onFilterChange("location")(e.target.value)}
                     className="block w-full rounded-md border-0 dark:bg-gray-800 dark:text-gray-100 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-indigo-400 sm:max-w-xs sm:text-sm sm:leading-6"
                   >
                     <option value="">Select</option>
@@ -843,7 +1017,7 @@ function App() {
                   <select
                     id="status"
                     value={status}
-                    onChange={(e) => setStatus(e.target.value)}
+                    onChange={(e) => onFilterChange("status")(e.target.value)}
                     className="block w-full rounded-md border-0 dark:bg-gray-800 dark:text-gray-100 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-indigo-400 sm:max-w-xs sm:text-sm sm:leading-6"
                   >
                     <option value="">Select</option>

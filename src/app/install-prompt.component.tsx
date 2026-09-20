@@ -1,18 +1,10 @@
-import { getAnalytics, logEvent } from "firebase/analytics"
 import React from "react"
+import { track } from "./shared/analytics"
 import { APP_NAME } from "./shared/config"
 import { InstallMode, useInstallPrompt } from "./shared/use-install-prompt"
 
 // wait for the loading screen to clear and the list to render before nudging
 const SHOW_DELAY_MS = 3000
-
-function track(name: string, params?: Record<string, string>) {
-  try {
-    logEvent(getAnalytics(), name, params)
-  } catch {
-    // analytics blocked or unsupported; installing still works
-  }
-}
 
 const ShareIcon = () => (
   <svg
@@ -104,7 +96,7 @@ const InstallPrompt: React.FC = () => {
   const open = ready && visible
 
   React.useEffect(() => {
-    if (open) track("pwa_install_prompt_shown", { mode })
+    if (open) track("install_prompt_show", { install_mode: mode })
   }, [open, mode])
 
   if (!open) return null
@@ -113,16 +105,15 @@ const InstallPrompt: React.FC = () => {
     setBusy(true)
     const outcome = await install()
     setBusy(false)
-    track(
-      outcome === "accepted"
-        ? "pwa_install_accepted"
-        : "pwa_install_prompt_dismissed",
-      { mode },
-    )
+    if (outcome === "accepted") {
+      track("install_accept", { install_mode: mode })
+    } else {
+      track("install_dismiss", { install_mode: mode, source: "native_dialog" })
+    }
   }
 
-  const onDismiss = () => {
-    track("pwa_install_banner_dismissed", { mode })
+  const onDismiss = (source: "not_now" | "got_it" | "close") => () => {
+    track("install_dismiss", { install_mode: mode, source })
     dismiss()
   }
 
@@ -175,7 +166,7 @@ const InstallPrompt: React.FC = () => {
                   </button>
                   <button
                     type="button"
-                    onClick={onDismiss}
+                    onClick={onDismiss("not_now")}
                     className="cursor rounded px-3 py-1.5 text-xs font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-indigo-400"
                   >
                     Not now
@@ -184,7 +175,7 @@ const InstallPrompt: React.FC = () => {
               ) : (
                 <button
                   type="button"
-                  onClick={onDismiss}
+                  onClick={onDismiss("got_it")}
                   className="cursor rounded bg-indigo-600 dark:bg-indigo-500 px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 dark:hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-indigo-400"
                 >
                   Got it
@@ -195,7 +186,7 @@ const InstallPrompt: React.FC = () => {
 
           <button
             type="button"
-            onClick={onDismiss}
+            onClick={onDismiss("close")}
             aria-label="Dismiss install prompt"
             className="cursor -m-1 rounded p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-indigo-400"
           >

@@ -54,7 +54,7 @@ export function isStandalone(): boolean {
   }
 }
 
-function detectMode(): InstallMode {
+export function detectInstallMode(): InstallMode {
   const ua = navigator.userAgent
   const nav = navigator as Navigator & { platform?: string }
 
@@ -102,7 +102,7 @@ interface InstallStore {
 }
 
 let snapshot: InstallStore = {
-  mode: detectMode(),
+  mode: detectInstallMode(),
   deferred: null,
   installed: false,
   standalone: isStandalone(),

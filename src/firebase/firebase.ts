@@ -22,8 +22,11 @@ const firebaseConfig = {
   measurementId: "G-H26JVMM8WM",
 }
 
+// analytics.ts re-injects gtag.js under this id when the app started offline
+export const MEASUREMENT_ID = firebaseConfig.measurementId
+
 // Initialize Firebase
-const app = initializeApp(firebaseConfig)
+export const app = initializeApp(firebaseConfig)
 initializeAnalytics(app)
 export const firestore = initializeFirestore(app, {
   localCache: persistentLocalCache({

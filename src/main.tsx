@@ -5,6 +5,8 @@ import { registerSW } from "virtual:pwa-register"
 
 import "react-toastify/dist/ReactToastify.css"
 import App from "./app/app.component"
+// side effects: app_open event, offline queue flushing
+import "./app/shared/analytics"
 import InstallPrompt from "./app/install-prompt.component"
 import ScrollTop from "./app/scroll-top.component"
 import "./assets/styles/style.css"
