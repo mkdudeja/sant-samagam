@@ -1,14 +1,14 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
-import { toast, ToastContainer } from "react-toastify"
+import { toast } from "sonner"
 import { registerSW } from "virtual:pwa-register"
 
-import "react-toastify/dist/ReactToastify.css"
 import App from "./app/app.component"
 // side effects: app_open event, offline queue flushing
 import "./app/shared/analytics"
 import InstallPrompt from "./app/install-prompt.component"
 import ScrollTop from "./app/scroll-top.component"
+import ThemedToaster from "./app/themed-toaster.component"
 import "./assets/styles/style.css"
 
 const intervalMS = 60 * 60 * 1000
@@ -48,6 +48,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <App />
     <ScrollTop />
     <InstallPrompt />
-    <ToastContainer toastClassName="text-sm" theme="colored" />
+    <ThemedToaster />
   </React.StrictMode>,
 )

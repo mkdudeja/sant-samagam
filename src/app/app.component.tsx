@@ -2,7 +2,7 @@
 import clsx from "clsx"
 import { collection, doc, getDoc, getDocs } from "firebase/firestore"
 import React from "react"
-import { toast } from "react-toastify"
+import { toast } from "sonner"
 import { firestore } from "../firebase/firebase"
 import { IPhonebook } from "../interfaces/shared.interface"
 import { EventParams, syncUserProperties, track } from "./shared/analytics"

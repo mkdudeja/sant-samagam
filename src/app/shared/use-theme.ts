@@ -21,44 +21,55 @@ function getDeviceTheme(): Theme {
   return window.matchMedia?.(DARK_QUERY).matches ? "dark" : "light"
 }
 
+// Module-level store instead of per-component state: the header toggle and
+// the Toaster live in different subtrees and must see the same theme.
+let theme: Theme = getStoredTheme() ?? getDeviceTheme()
+const listeners = new Set<() => void>()
+
+function applyTheme() {
+  document.documentElement.classList.toggle("dark", theme === "dark")
+
+  document
+    .querySelector('meta[name="theme-color"]')
+    ?.setAttribute("content", theme === "dark" ? "#111827" : "#fbf8f2")
+}
+
+function setTheme(next: Theme) {
+  if (next === theme) return
+
+  theme = next
+  applyTheme()
+  listeners.forEach((listener) => listener())
+}
+
+applyTheme()
+
+// keep following the device until the user overrides it
+window.matchMedia?.(DARK_QUERY).addEventListener("change", (event) => {
+  if (!getStoredTheme()) setTheme(event.matches ? "dark" : "light")
+})
+
+// only an explicit toggle is persisted; the device default never is
+export function toggleTheme() {
+  const next: Theme = theme === "dark" ? "light" : "dark"
+
+  try {
+    localStorage.setItem(KEY_THEME, next)
+  } catch {
+    // private mode / blocked storage: the choice still applies this session
+  }
+
+  setTheme(next)
+}
+
 export function useTheme() {
-  const [theme, setTheme] = React.useState<Theme>(
-    () => getStoredTheme() ?? getDeviceTheme(),
+  const current = React.useSyncExternalStore(
+    (onChange) => {
+      listeners.add(onChange)
+      return () => listeners.delete(onChange)
+    },
+    () => theme,
   )
 
-  React.useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark")
-
-    document
-      .querySelector('meta[name="theme-color"]')
-      ?.setAttribute("content", theme === "dark" ? "#111827" : "#fbf8f2")
-  }, [theme])
-
-  // keep following the device until the user overrides it
-  React.useEffect(() => {
-    const media = window.matchMedia?.(DARK_QUERY)
-    if (!media) return
-
-    const onChange = (event: MediaQueryListEvent) => {
-      if (!getStoredTheme()) setTheme(event.matches ? "dark" : "light")
-    }
-
-    media.addEventListener("change", onChange)
-    return () => media.removeEventListener("change", onChange)
-  }, [])
-
-  // only an explicit toggle is persisted; the device default never is
-  const toggleTheme = React.useCallback(() => {
-    const next: Theme = theme === "dark" ? "light" : "dark"
-
-    try {
-      localStorage.setItem(KEY_THEME, next)
-    } catch {
-      // private mode / blocked storage: the choice still applies this session
-    }
-
-    setTheme(next)
-  }, [theme])
-
-  return { theme, toggleTheme }
+  return { theme: current, toggleTheme }
 }
