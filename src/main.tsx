@@ -16,22 +16,23 @@ registerSW({
     toast.success("App can be accessed in offline (no internet) mode as well.")
   },
   onRegisteredSW(swUrl, r) {
-    r &&
-      setInterval(async () => {
-        if (!(!r.installing && navigator)) return
+    if (!r) return
 
-        if ("connection" in navigator && !navigator.onLine) return
+    setInterval(async () => {
+      if (!(!r.installing && navigator)) return
 
-        const resp = await fetch(swUrl, {
+      if ("connection" in navigator && !navigator.onLine) return
+
+      const resp = await fetch(swUrl, {
+        cache: "no-store",
+        headers: {
           cache: "no-store",
-          headers: {
-            cache: "no-store",
-            "cache-control": "no-cache",
-          },
-        })
+          "cache-control": "no-cache",
+        },
+      })
 
-        if (resp?.status === 200) await r.update()
-      }, intervalMS)
+      if (resp?.status === 200) await r.update()
+    }, intervalMS)
   },
 })
 

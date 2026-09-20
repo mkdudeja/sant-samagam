@@ -273,7 +273,7 @@ function App() {
               ...filterByName(
                 (item.children ?? []) as IPhonebook[],
                 search,
-              )?.map((child) => renderIntercomRow(child, 1)),
+              ).map((child) => renderIntercomRow(child, 1)),
             ])}
           </tbody>
         </table>
@@ -532,7 +532,7 @@ function App() {
               ...filterByName(
                 (item.children ?? []) as IPhonebook[],
                 search,
-              )?.map((child) => renderIntercomRow(child, 1)),
+              ).map((child) => renderIntercomRow(child, 1)),
             ])}
           </div>
         </div>
