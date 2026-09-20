@@ -12,7 +12,7 @@
     "format": "prettier --write .",
     "deploy": "npm run build && firebase deploy",
     "type-check": "tsc",
-    "generate-pwa-assets": "pwa-assets-generator"
+    "generate-pwa-assets": "pwa-assets-generator && node scripts/finalize-pwa-assets.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

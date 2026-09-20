@@ -14,6 +14,12 @@ export default tseslint.config(
   reactRefresh.configs.vite,
   prettierConfig,
   {
+    files: ["scripts/**/*.mjs"],
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
+  {
     files: ["**/*.{ts,tsx}"],
     languageOptions: {
       ecmaVersion: 2022,

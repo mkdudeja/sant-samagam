@@ -5,6 +5,7 @@ import { registerSW } from "virtual:pwa-register"
 
 import "react-toastify/dist/ReactToastify.css"
 import App from "./app/app.component"
+import InstallPrompt from "./app/install-prompt.component"
 import ScrollTop from "./app/scroll-top.component"
 import "./assets/styles/style.css"
 
@@ -44,6 +45,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     {/* <Offline /> */}
     <App />
     <ScrollTop />
+    <InstallPrompt />
     <ToastContainer toastClassName="text-sm" theme="colored" />
   </React.StrictMode>,
 )

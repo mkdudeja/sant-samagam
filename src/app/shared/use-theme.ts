@@ -28,6 +28,10 @@ export function useTheme() {
 
   React.useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark")
+
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute("content", theme === "dark" ? "#111827" : "#fbf8f2")
   }, [theme])
 
   // keep following the device until the user overrides it

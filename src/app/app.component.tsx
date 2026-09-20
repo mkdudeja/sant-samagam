@@ -21,6 +21,7 @@ import {
   HELP_TEXT,
   ICT_CONTACTS,
 } from "./shared/config"
+import { useInstallPrompt } from "./shared/use-install-prompt"
 import { useTheme } from "./shared/use-theme"
 
 const ANALYTICS = getAnalytics()
@@ -61,6 +62,9 @@ function App() {
   const { theme, toggleTheme } = useTheme()
   const isDark = theme === "dark"
 
+  // header entry point so a dismissed install banner can be reopened
+  const installPrompt = useInstallPrompt()
+
   const [status, setStatus] = React.useState("")
   const [search, setSearch] = React.useState("")
   const [location, setLocation] = React.useState("")
@@ -80,6 +84,10 @@ function App() {
     setLocation("")
     setDepartment("")
   }
+
+  React.useEffect(() => {
+    document.getElementById("app-loading")?.remove()
+  }, [])
 
   React.useEffect(() => {
     const onWindowResize = () => {
@@ -679,6 +687,31 @@ function App() {
             </h2>
           </div>
           <div className="absolute top-2 right-2 flex items-center gap-2 print:hidden">
+            {installPrompt.available && (
+              <button
+                type="button"
+                onClick={installPrompt.show}
+                title="Add to home screen"
+                aria-label="Add to home screen"
+                className="cursor rounded p-1 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-indigo-400"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.8}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-5 h-5"
+                  aria-hidden="true"
+                >
+                  <path d="M12 4v11" />
+                  <path d="M8 11l4 4 4-4" />
+                  <path d="M4 17v1a2 2 0 002 2h12a2 2 0 002-2v-1" />
+                </svg>
+              </button>
+            )}
             <button
               type="button"
               onClick={toggleTheme}

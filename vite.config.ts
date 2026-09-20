@@ -24,6 +24,9 @@ export default defineConfig(({ mode }) => {
           globPatterns: [
             "**/*.{js,css,html,ico,png,svg,webp,jpg,jpeg,woff,woff2}",
           ],
+          // iOS caches the startup image itself when the PWA is installed, so
+          // precaching all 80 of them would bloat the offline install for no gain
+          globIgnores: ["**/apple-splash-*.png"],
           // Important for Firebase offline
           cleanupOutdatedCaches: true,
           // take over open pages so updates land without user action
@@ -35,42 +38,47 @@ export default defineConfig(({ mode }) => {
         },
         // add this to cache all the
         // static assets in the public folder
-        includeAssets: [
-          "favicon.ico",
-          "apple-touch-icon.png",
-          "pwa-*.png",
-          "maskable-icon-*.png",
-          "**/*.{js,css,html,ico,png,svg,webp,jpg,jpeg,woff,woff2}",
-        ],
+        includeAssets: ["favicon.ico", "assets/images/icons/*.png"],
         manifest: {
-          theme_color: "#87CEEB",
-          background_color: "#87CEEB",
+          // stable identity so Chromium keeps recognising the install across
+          // start_url changes
+          id: "/",
+          lang: "en",
+          dir: "ltr",
+          categories: ["utilities", "productivity"],
+          theme_color: "#fbf8f2",
+          background_color: "#fbf8f2",
           display: "standalone",
+          display_override: ["standalone", "minimal-ui"],
+          // never point users at a store listing instead of this PWA
+          prefer_related_applications: false,
           scope: "/",
           start_url: "/",
+          // name is what Android launchers, desktop app lists and Safari's Dock
+          // show under the icon; the full event title only fits in description
+          name: APP_NAME,
           short_name: APP_NAME,
           description: APP_TITLE,
-          name: APP_TITLE,
           orientation: "portrait-primary",
           icons: [
             {
-              src: "pwa-64x64.png",
+              src: "assets/images/icons/pwa-64x64.png",
               sizes: "64x64",
               type: "image/png",
             },
             {
-              src: "pwa-192x192.png",
+              src: "assets/images/icons/pwa-192x192.png",
               sizes: "192x192",
               type: "image/png",
             },
             {
-              src: "pwa-512x512.png",
+              src: "assets/images/icons/pwa-512x512.png",
               sizes: "512x512",
               type: "image/png",
               purpose: "any",
             },
             {
-              src: "maskable-icon-512x512.png",
+              src: "assets/images/icons/maskable-icon-512x512.png",
               sizes: "512x512",
               type: "image/png",
               purpose: "maskable",
@@ -85,7 +93,7 @@ export default defineConfig(({ mode }) => {
               url: "/",
               icons: [
                 {
-                  src: "pwa-192x192.png",
+                  src: "assets/images/icons/pwa-192x192.png",
                   sizes: "192x192",
                 },
               ],
