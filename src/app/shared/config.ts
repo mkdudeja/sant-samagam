@@ -1,5 +1,10 @@
 import { IPhonebook } from "../../interfaces/shared.interface"
 
+// Single source of truth: change VITE_EVENT_NAME in .env and every place follows.
+export const EVENT_NAME: string = import.meta.env.VITE_EVENT_NAME
+export const APP_NAME: string = import.meta.env.VITE_APP_NAME
+export const APP_TITLE = `${APP_NAME} | ${EVENT_NAME}`
+
 export const DEPARTMENTS: Array<string> = [
   "Samagam Coordination Committee",
   "Accounts Office",

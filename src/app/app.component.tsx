@@ -14,6 +14,7 @@ import {
 } from "./app.helper"
 import PHONEBOOK from "./phonebook.json"
 import {
+  EVENT_NAME,
   FEATURED_CONTACTS,
   FEATURED_EXTNS,
   FEATURED_EXTNS_PRIMARY,
@@ -652,8 +653,8 @@ function App() {
       <nav className="border-b border-gray-200 bg-white">
         <div className="relative mx-4 my-2 lg:mx-auto max-w-5xl">
           <div className="flex flex-col space-y-2 lg:space-y-4 print:space-y-2 text-center p-4 print:p-2 border-4 border-black rounded-lg">
-            <h1 className="text-xl lg:text-2xl font-bold print:text-base">
-              78th ANNUAL NIRANKARI SANT SAMAGAM
+            <h1 className="text-xl lg:text-2xl font-bold print:text-base uppercase">
+              {EVENT_NAME}
             </h1>
             <h2 className="text-base lg:text-lg underline print:text-md">
               TELEPHONE / INTERCOM NUMBER LIST
