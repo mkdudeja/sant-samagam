@@ -13,6 +13,13 @@ import "./assets/styles/style.css"
 
 const intervalMS = 60 * 60 * 1000
 
+// Without the persistent-storage grant the browser may evict CacheStorage and
+// IndexedDB under disk pressure, which strands offline users on the browser's
+// "You're offline" page at next launch. Best effort; denial is fine.
+if ("storage" in navigator && "persist" in navigator.storage) {
+  void navigator.storage.persist()
+}
+
 registerSW({
   immediate: true,
   onOfflineReady() {

@@ -26,7 +26,13 @@ export default defineConfig(({ mode }) => {
           ],
           // iOS caches the startup image itself when the PWA is installed, so
           // precaching all 80 of them would bloat the offline install for no gain
-          globIgnores: ["**/apple-splash-*.png"],
+          // - splash screens: iOS caches the startup image itself at install
+          //   time, so precaching all of them would bloat the offline install
+          // - icons: precached via the manifest-icons injection with content
+          //   hashes; the glob would add a second, conflicting revision:null
+          //   entry because plain-named files under assets/ look hash-named
+          //   to the plugin (see scripts/verify-sw-precache.mjs)
+          globIgnores: ["**/apple-splash-*.png", "**/assets/images/icons/**"],
           // Important for Firebase offline
           cleanupOutdatedCaches: true,
           // take over open pages so updates land without user action
@@ -38,7 +44,12 @@ export default defineConfig(({ mode }) => {
         },
         // add this to cache all the
         // static assets in the public folder
-        includeAssets: ["favicon.ico", "assets/images/icons/*.png"],
+        // NO includeAssets: globPatterns already covers every public/ file in
+        // the build output. Listing a file in both gave it two precache entries
+        // with conflicting revisions (hash vs null), which makes workbox's
+        // addToCacheList throw inside the sw.js module loader — silently, after
+        // skipWaiting() — leaving an ACTIVE service worker with no fetch
+        // handler and an empty cache: the app dies offline.
         manifest: {
           // stable identity so Chromium keeps recognising the install across
           // start_url changes

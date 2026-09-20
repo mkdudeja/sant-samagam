@@ -850,16 +850,18 @@ function App() {
     <div className="min-h-full">
       <nav className="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
         <div className="relative mx-4 my-2 lg:mx-auto max-w-5xl">
-          <div className="flex flex-col space-y-2 lg:space-y-4 print:space-y-2 text-center p-4 print:p-2 border-4 border-black dark:border-gray-300 rounded-lg">
-            <h1 className="text-xl lg:text-2xl font-bold print:text-base uppercase">
+          {/* horizontal padding keeps the title clear of the action icons */}
+          <div className="flex flex-col space-y-1 lg:space-y-3 print:space-y-2 text-center px-10 py-3 lg:p-4 print:p-2 border-4 border-black dark:border-gray-300 rounded-lg">
+            <h1 className="text-lg lg:text-2xl font-bold print:text-base uppercase leading-tight">
               {EVENT_NAME}
             </h1>
-            <h2 className="text-base lg:text-lg underline print:text-md">
-              TELEPHONE / INTERCOM NUMBER LIST
+            <h2 className="text-sm lg:text-lg underline print:text-md whitespace-nowrap">
+              TELEPHONE / INTERCOM NUMBERS
             </h2>
           </div>
-          <div className="absolute top-2 right-2 flex items-center gap-2 print:hidden">
-            {installPrompt.available && (
+          {/* stacked on phones so two icons fit inside the title padding */}
+          <div className="absolute top-2 right-2 flex flex-col lg:flex-row items-center gap-1 lg:gap-2 print:hidden">
+            {installPrompt.available && !installPrompt.visible && (
               <button
                 type="button"
                 onClick={onInstallClick}
