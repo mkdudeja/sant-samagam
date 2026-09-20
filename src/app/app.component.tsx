@@ -121,7 +121,7 @@ function App() {
       try {
         const syncRef = doc(firestore, "lastsynced", "syncid")
         const syncSnap = await getDoc(syncRef)
-        if (syncSnap.exists) {
+        if (syncSnap.exists()) {
           const docData = syncSnap.data() as {
             timestamp: string
           }

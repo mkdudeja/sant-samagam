@@ -15,13 +15,16 @@ registerSW({
   onOfflineReady() {
     toast.success("App can be accessed in offline (no internet) mode as well.")
   },
+  // suppresses the default reload-on-update, which would wipe the search
+  onNeedReload() {},
   onRegisteredSW(swUrl, r) {
     if (!r) return
 
     setInterval(async () => {
-      if (!(!r.installing && navigator)) return
+      if (r.installing) return
 
-      if ("connection" in navigator && !navigator.onLine) return
+      // unguarded: navigator.connection is Chromium-only
+      if (!navigator.onLine) return
 
       const resp = await fetch(swUrl, {
         cache: "no-store",

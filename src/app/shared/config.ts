@@ -1,6 +1,6 @@
 import { IPhonebook } from "../../interfaces/shared.interface"
 
-// Single source of truth: change VITE_EVENT_NAME in .env and every place follows.
+// single source of truth for the event name
 export const EVENT_NAME: string = import.meta.env.VITE_EVENT_NAME
 export const APP_NAME: string = import.meta.env.VITE_APP_NAME
 export const APP_TITLE = `${APP_NAME} | ${EVENT_NAME}`

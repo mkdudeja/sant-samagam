@@ -6,7 +6,7 @@ import { VitePWA } from "vite-plugin-pwa"
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-  // Single source of truth: change VITE_EVENT_NAME in .env and every place follows.
+  // single source of truth for the event name
   const env = loadEnv(mode, process.cwd(), "VITE_")
   const APP_NAME = env.VITE_APP_NAME
   const EVENT_NAME = env.VITE_EVENT_NAME
@@ -26,6 +26,7 @@ export default defineConfig(({ mode }) => {
           ],
           // Important for Firebase offline
           cleanupOutdatedCaches: true,
+          // take over open pages so updates land without user action
           skipWaiting: true,
           clientsClaim: true,
           // Handle navigation fallback for SPA
@@ -104,10 +105,9 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       outDir: "build",
-      sourcemap: true,
-      // Optimize bundle for Firebase.
-      // Vite 8 bundles with rolldown, which takes codeSplitting groups
-      // instead of the object form of manualChunks.
+      // maps were 3.5 MB of a 4.8 MB deploy; use --mode development for them
+      sourcemap: mode !== "production",
+      // rolldown takes codeSplitting groups, not the manualChunks object
       rollupOptions: {
         output: {
           codeSplitting: {
