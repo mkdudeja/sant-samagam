@@ -1,6 +1,28 @@
 @import "tailwindcss";
 
+/* Manual toggle instead of prefers-color-scheme, and wrapped in @media screen
+   so no dark: utility can ever reach the printed page. */
+@custom-variant dark {
+  @media screen {
+    &:where(.dark, .dark *) {
+      @slot;
+    }
+  }
+}
+
 body {
   -webkit-print-color-adjust: exact !important;
   print-color-adjust: exact !important;
+}
+
+@media screen {
+  /* lets the browser render form controls and scrollbars dark too */
+  html.dark {
+    color-scheme: dark;
+  }
+
+  html.dark body {
+    background-color: var(--color-gray-900);
+    color: var(--color-gray-100);
+  }
 }

@@ -31,7 +31,7 @@ const ScrollTop: React.FC = () => {
         isVisible ? "opacity-100" : "opacity-0",
       )}
     >
-      <button onClick={scrollTop}>
+      <button onClick={scrollTop} className="dark:text-gray-200">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"

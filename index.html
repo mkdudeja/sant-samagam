@@ -7,6 +7,19 @@
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
+    <!-- applies the saved theme before first paint, so dark mode never flashes white -->
+    <script>
+      // mirrors getStoredTheme()/getDeviceTheme() in src/app/shared/use-theme.ts
+      try {
+        var stored = localStorage.getItem("eDirectory_theme")
+        var isDark =
+          stored === "dark" || stored === "light"
+            ? stored === "dark"
+            : window.matchMedia("(prefers-color-scheme: dark)").matches
+        if (isDark) document.documentElement.classList.add("dark")
+      } catch (e) {}
+    </script>
+
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#87CEEB" />
     <meta name="apple-mobile-web-app-capable" content="yes" />

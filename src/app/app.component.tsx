@@ -21,6 +21,7 @@ import {
   HELP_TEXT,
   ICT_CONTACTS,
 } from "./shared/config"
+import { useTheme } from "./shared/use-theme"
 
 const ANALYTICS = getAnalytics()
 
@@ -57,6 +58,9 @@ function setLSItem(key: string, value: unknown) {
 }
 
 function App() {
+  const { theme, toggleTheme } = useTheme()
+  const isDark = theme === "dark"
+
   const [status, setStatus] = React.useState("")
   const [search, setSearch] = React.useState("")
   const [location, setLocation] = React.useState("")
@@ -205,7 +209,7 @@ function App() {
           <td
             className={clsx(
               "py-1 px-2 lg:py-1 w-6/12",
-              !hasExtn && "bg-gray-100",
+              !hasExtn && "bg-gray-100 dark:bg-gray-800",
             )}
             colSpan={hasExtn ? 1 : 3}
           >
@@ -236,7 +240,7 @@ function App() {
     }
     return (
       <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-300 border border-gray-300 rounded-lg text-sm print:text-xs">
+        <table className="min-w-full divide-y divide-gray-300 dark:divide-gray-700 border border-gray-300 dark:border-gray-700 rounded-lg text-sm print:text-xs">
           {withHeader && (
             <thead className="print:table-header-group">
               <tr>
@@ -267,7 +271,7 @@ function App() {
               </tr>
             </thead>
           )}
-          <tbody className="divide-y divide-gray-200 bg-white">
+          <tbody className="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-900">
             {rowData.map((item) => [
               renderIntercomRow(item),
               ...filterByName(
@@ -285,8 +289,8 @@ function App() {
     if (!rowData.length) return
     return (
       <div className="overflow-x-auto text-sm print:text-xs">
-        <table className="min-w-full border border-gray-300 rounded-lg">
-          <tbody className="divide-y divide-gray-200 bg-white">
+        <table className="min-w-full border border-gray-300 dark:border-gray-700 rounded-lg">
+          <tbody className="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-900">
             {rowData.map((item) => (
               <tr key={item.name}>
                 <td className="py-1 px-2 lg:py-1 w-6/12">
@@ -295,7 +299,9 @@ function App() {
                       {item.name}
                     </h4>
                     <div className="flex justify-between items-center lg:hidden print:hidden">
-                      <span className="text-gray-500">{item.designation}</span>
+                      <span className="text-gray-500 dark:text-gray-400">
+                        {item.designation}
+                      </span>
                       <div className="flex flex-col">
                         <span>{renderPhone(item.mobile as string, 1)}</span>
                         {!!item.extn && (
@@ -340,11 +346,11 @@ function App() {
 
     return (
       <div key={locationId}>
-        <h1 className="text-sm text-center font-semibold py-1 pl-4 pr-3 sm:pl-3 border border-gray-200 bg-gray-200">
+        <h1 className="text-sm text-center font-semibold py-1 pl-4 pr-3 sm:pl-3 border border-gray-200 dark:border-gray-700 bg-gray-200 dark:bg-gray-700">
           {locationId ?? "NA"}
         </h1>
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-300 border border-gray-300">
+          <table className="min-w-full divide-y divide-gray-300 dark:divide-gray-700 border border-gray-300 dark:border-gray-700">
             <thead className="print:table-header-group">
               <tr>
                 <th
@@ -373,7 +379,7 @@ function App() {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200 bg-white">
+            <tbody className="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-900">
               {!!departmentDataKeys.length &&
                 Object.keys(departmentDataSource).map((departmentId) =>
                   renderDepartment(
@@ -396,7 +402,7 @@ function App() {
   ) => {
     return (
       <React.Fragment key={`${locationId}-${departmentId}`}>
-        <tr className="border-t border-gray-200 bg-gray-100">
+        <tr className="border-t border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800">
           <th
             colSpan={3}
             scope="colgroup"
@@ -451,13 +457,23 @@ function App() {
           <a
             href={`tel:${value}`}
             target="_blank"
-            className={clsx(status ? "text-blue-700" : "text-red-700")}
+            className={clsx(
+              status
+                ? "text-blue-700 dark:text-blue-400"
+                : "text-red-700 dark:text-red-400",
+            )}
             rel="noopener noreferrer"
           >
             {value}
           </a>
         ) : (
-          <span className={clsx(status ? "text-blue-700" : "text-red-700")}>
+          <span
+            className={clsx(
+              status
+                ? "text-blue-700 dark:text-blue-400"
+                : "text-red-700 dark:text-red-400",
+            )}
+          >
             {value}
           </span>
         )}
@@ -491,7 +507,7 @@ function App() {
           <div
             className={clsx(
               "px-2 py-[2px] text-xs text-left font-normal",
-              !hasExtn && "col-span-4 bg-gray-100",
+              !hasExtn && "col-span-4 bg-gray-100 dark:bg-gray-800",
               level && "pl-6",
             )}
           >
@@ -551,7 +567,9 @@ function App() {
                 <div className="px-2 py-[2px] text-xs text-left font-normal">
                   <h4 className="break-words whitespace-normal">
                     <span>{item.name}</span>,&nbsp;
-                    <span className="text-gray-500">{item.designation}</span>
+                    <span className="text-gray-500 dark:text-gray-400">
+                      {item.designation}
+                    </span>
                   </h4>
                 </div>
                 <div className="px-2 py-[2px] text-xs text-right">
@@ -581,7 +599,7 @@ function App() {
 
     return (
       <div className="text-xs" key={locationId}>
-        <h1 className="font-serif text-center font-semibold py-[2px] px-3 border border-gray-200 bg-gray-200">
+        <h1 className="font-serif text-center font-semibold py-[2px] px-3 border border-gray-200 dark:border-gray-700 bg-gray-200 dark:bg-gray-700">
           {locationId ?? "NA"}
         </h1>
         <div className="overflow-x-auto">
@@ -598,7 +616,7 @@ function App() {
               Object.keys(departmentDataSource).map((departmentId) => {
                 return (
                   <React.Fragment key={`${locationId}-${departmentId}`}>
-                    <div className="font-mono border-t border-gray-200 bg-gray-100 py-[2px] px-2 text-left text-xs font-semibold col-span-4">
+                    <div className="font-mono border-t border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 py-[2px] px-2 text-left text-xs font-semibold col-span-4">
                       {departmentId ?? "NA"}
                     </div>
                     {departmentDataSource[departmentId].map((item) => (
@@ -650,9 +668,9 @@ function App() {
 
   return (
     <div className="min-h-full">
-      <nav className="border-b border-gray-200 bg-white">
+      <nav className="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
         <div className="relative mx-4 my-2 lg:mx-auto max-w-5xl">
-          <div className="flex flex-col space-y-2 lg:space-y-4 print:space-y-2 text-center p-4 print:p-2 border-4 border-black rounded-lg">
+          <div className="flex flex-col space-y-2 lg:space-y-4 print:space-y-2 text-center p-4 print:p-2 border-4 border-black dark:border-gray-300 rounded-lg">
             <h1 className="text-xl lg:text-2xl font-bold print:text-base uppercase">
               {EVENT_NAME}
             </h1>
@@ -660,17 +678,52 @@ function App() {
               TELEPHONE / INTERCOM NUMBER LIST
             </h2>
           </div>
-          {!isMobile && (
-            <div className="absolute top-2 right-2 print:hidden">
+          <div className="absolute top-2 right-2 flex items-center gap-2 print:hidden">
+            <button
+              type="button"
+              onClick={toggleTheme}
+              title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+              aria-label={
+                isDark ? "Switch to light mode" : "Switch to dark mode"
+              }
+              className="cursor rounded p-1 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-indigo-400"
+            >
+              {isDark ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="w-5 h-5"
+                  aria-hidden="true"
+                >
+                  <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.592-1.591zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.591 1.591z" />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="w-5 h-5"
+                  aria-hidden="true"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              )}
+            </button>
+            {!isMobile && (
               <button
                 type="button"
                 onClick={window.print}
-                className="cursor rounded bg-indigo-600 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="cursor rounded bg-indigo-600 dark:bg-indigo-500 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 dark:hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-indigo-400"
               >
                 Print
               </button>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </nav>
 
@@ -682,7 +735,7 @@ function App() {
               <div className="sm:col-span-2 sm:col-start-1">
                 <label
                   htmlFor="username"
-                  className="block text-xs text-gray-500 font-medium"
+                  className="block text-xs text-gray-500 dark:text-gray-400 font-medium"
                 >
                   Name/ Extn/ Phone
                 </label>
@@ -693,7 +746,7 @@ function App() {
                     value={search}
                     autoComplete="off"
                     onChange={(e) => setSearch(e.target.value)}
-                    className="block w-full rounded-md border-0 px-2 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 dark:bg-gray-800 dark:text-gray-100 px-2 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-indigo-400 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
@@ -701,7 +754,7 @@ function App() {
               <div className="sm:col-span-2">
                 <label
                   htmlFor="department"
-                  className="block text-xs text-gray-500 font-medium"
+                  className="block text-xs text-gray-500 dark:text-gray-400 font-medium"
                 >
                   Department
                 </label>
@@ -710,7 +763,7 @@ function App() {
                     id="department"
                     value={department}
                     onChange={(e) => setDepartment(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 dark:bg-gray-800 dark:text-gray-100 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-indigo-400 sm:max-w-xs sm:text-sm sm:leading-6"
                   >
                     <option value="">Select</option>
                     {depOptions.map((item) => (
@@ -725,7 +778,7 @@ function App() {
               <div className="sm:col-span-2">
                 <label
                   htmlFor="location"
-                  className="block text-xs text-gray-500 font-medium"
+                  className="block text-xs text-gray-500 dark:text-gray-400 font-medium"
                 >
                   Location
                 </label>
@@ -734,7 +787,7 @@ function App() {
                     id="location"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 dark:bg-gray-800 dark:text-gray-100 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-indigo-400 sm:max-w-xs sm:text-sm sm:leading-6"
                   >
                     <option value="">Select</option>
                     {locOptions.map((item) => (
@@ -749,7 +802,7 @@ function App() {
               <div className="sm:col-span-2">
                 <label
                   htmlFor="location"
-                  className="block text-xs text-gray-500 font-medium"
+                  className="block text-xs text-gray-500 dark:text-gray-400 font-medium"
                 >
                   Status
                 </label>
@@ -758,7 +811,7 @@ function App() {
                     id="status"
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 dark:bg-gray-800 dark:text-gray-100 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-indigo-400 sm:max-w-xs sm:text-sm sm:leading-6"
                   >
                     <option value="">Select</option>
                     <option value="1">Active</option>
@@ -771,17 +824,17 @@ function App() {
             <div className="flex justify-end items-center space-x-4 text-sm">
               <button
                 onClick={clearFilters}
-                className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
+                className="underline text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 visited:text-purple-600 dark:visited:text-purple-400"
               >
                 Clear Filters
               </button>
               <div className="flex space-x-1 items-center">
-                <span className="flex w-3 h-3 bg-blue-700"></span>
+                <span className="flex w-3 h-3 bg-blue-700 dark:bg-blue-400"></span>
                 <span>Active</span>
                 <small>({activeCount})</small>
               </div>
               <div className="flex space-x-1 items-center">
-                <span className="flex w-3 h-3 bg-red-700"></span>
+                <span className="flex w-3 h-3 bg-red-700 dark:bg-red-400"></span>
                 <span>Inactive</span>
                 <small>({inactiveCount})</small>
               </div>
@@ -790,7 +843,7 @@ function App() {
 
           {/* help text */}
           {!hasFilters && (
-            <ul className="divide-y divide-gray-200 border border-gray-200 text-sm print:text-xs">
+            <ul className="divide-y divide-gray-200 dark:divide-gray-700 border border-gray-200 dark:border-gray-700 text-sm print:text-xs">
               {HELP_TEXT.map((item, index) => (
                 <li key={index} className="py-1 px-4">
                   {item}
@@ -809,7 +862,7 @@ function App() {
           <div className="flex flex-col space-y-2 print:hidden">
             {!hasListFilters && !!filteredFeaturedExtns.length && (
               <div className="space-y-0">
-                <h2 className="text-center text-md lg:text-l font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
+                <h2 className="text-center text-md lg:text-l font-semibold py-1 px-3 border border-gray-200 dark:border-gray-700 bg-gray-200 dark:bg-gray-700">
                   Essential Services
                 </h2>
                 {renderIntercom(filteredFeaturedExtns, true)}
@@ -818,7 +871,7 @@ function App() {
 
             {!hasListFilters && !!filteredFeaturedContacts.length && (
               <div className="space-y-0">
-                <h2 className="text-center text-md lg:text-l font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
+                <h2 className="text-center text-md lg:text-l font-semibold py-1 px-3 border border-gray-200 dark:border-gray-700 bg-gray-200 dark:bg-gray-700">
                   Samagam Committee
                 </h2>
                 {renderFeatured(filteredFeaturedContacts)}
@@ -827,7 +880,7 @@ function App() {
 
             {/* {!hasListFilters && !!filteredICTContacts.length && (
               <div className="space-y-0">
-                <h2 className="text-center text-md lg:text-l font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
+                <h2 className="text-center text-md lg:text-l font-semibold py-1 px-3 border border-gray-200 dark:border-gray-700 bg-gray-200 dark:bg-gray-700">
                   Internet, Computer & Telecom
                 </h2>
                 {renderFeatured(filteredICTContacts)}
@@ -847,7 +900,7 @@ function App() {
             <div className="hidden flex-col space-y-2 print:flex">
               {!hasListFilters && !!filteredFeaturedExtns.length && (
                 <div className="space-y-0">
-                  <h2 className="text-center text-md lg:text-l font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
+                  <h2 className="text-center text-md lg:text-l font-semibold py-1 px-3 border border-gray-200 dark:border-gray-700 bg-gray-200 dark:bg-gray-700">
                     Essential Services
                   </h2>
                   {renderIntercomPrint(filteredFeaturedExtns, true)}
@@ -856,7 +909,7 @@ function App() {
 
               {!hasListFilters && !!filteredFeaturedContacts.length && (
                 <div className="space-y-0">
-                  <h2 className="text-center text-md lg:text-l font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
+                  <h2 className="text-center text-md lg:text-l font-semibold py-1 px-3 border border-gray-200 dark:border-gray-700 bg-gray-200 dark:bg-gray-700">
                     Samagam Committee
                   </h2>
                   {renderFeaturedPrint(filteredFeaturedContacts)}
@@ -865,7 +918,7 @@ function App() {
 
               {/* {!hasListFilters && !!filteredICTContacts.length && (
                 <div className="space-y-0">
-                  <h2 className="text-center text-md lg:text-l font-semibold py-1 px-3 border border-gray-200 bg-gray-200">
+                  <h2 className="text-center text-md lg:text-l font-semibold py-1 px-3 border border-gray-200 dark:border-gray-700 bg-gray-200 dark:bg-gray-700">
                     Internet, Computer & Telecom
                   </h2>
                   {renderFeaturedPrint(filteredICTContacts)}
