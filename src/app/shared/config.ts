@@ -46,7 +46,7 @@ export const HELP_TEXT = [
 export const FEATURED_EXTNS_PRIMARY: Array<Partial<IPhonebook>> = [
   {
     name: "Service Helpdesk",
-    phone: "0180-6622557",
+    phone: "0180-6664557",
     extn: "400",
     status: 1,
   },
@@ -58,7 +58,7 @@ export const FEATURED_EXTNS: Array<Partial<IPhonebook>> = [
     children: [
       {
         name: "- Ground A",
-        phone: "0180-6622576",
+        phone: "0180-6664576",
         extn: "576",
         status: 1,
       },
@@ -75,19 +75,19 @@ export const FEATURED_EXTNS: Array<Partial<IPhonebook>> = [
       },
       {
         name: "- Ground B",
-        phone: "0180-6622626",
+        phone: "0180-6664626",
         extn: "626",
         status: 1,
       },
       {
         name: "- Ground C",
-        phone: "0180-6622627",
-        extn: "627",
+        phone: "0180-6664645",
+        extn: "645",
         status: 1,
       },
       {
         name: "- Ground D",
-        phone: "0180-6622667",
+        phone: "0180-6664667",
         extn: "667",
         status: 1,
       },
@@ -97,7 +97,7 @@ export const FEATURED_EXTNS: Array<Partial<IPhonebook>> = [
     name: "Fire Post",
     children: [
       {
-        name: "- BackStage",
+        name: "- Ground A",
         phone: "0180-6621440",
         extn: "440",
         status: 1,
@@ -105,11 +105,11 @@ export const FEATURED_EXTNS: Array<Partial<IPhonebook>> = [
     ],
   },
   {
-    name: "Medical Emergency",
+    name: "Medical Emergency Service",
     children: [
       {
         name: "- Ground A",
-        phone: "0180-6622699",
+        phone: "0180-6664699",
         extn: "777",
         status: 1,
       },
@@ -120,13 +120,18 @@ export const FEATURED_EXTNS: Array<Partial<IPhonebook>> = [
     children: [
       {
         name: "- Ground A",
-        phone: "0180-6622622",
-        extn: "622",
+        phone: "0180-6621449",
+        extn: "449",
         status: 1,
       },
+    ],
+  },
+  {
+    name: "Main Control Room",
+    children: [
       {
         name: "- Ground D",
-        phone: "0180-6622504",
+        phone: "0180-6664504",
         extn: "504",
         status: 1,
       },
@@ -155,6 +160,12 @@ export const FEATURED_CONTACTS: Array<Partial<IPhonebook>> = [
     extn: "9810450154",
   },
   {
+    name: "Rev. Dr. Darshan Singh Ji",
+    designation: "Vice President",
+    mobile: "7007740067",
+    extn: "9450168773",
+  },
+  {
     name: "Rev. Sukhdev Singh Ji",
     designation: "General Secretary",
     mobile: "9266629807",
@@ -179,43 +190,31 @@ export const FEATURED_CONTACTS: Array<Partial<IPhonebook>> = [
     extn: "9810532920",
   },
   {
-    name: "Rev. Ashok Manchanda Ji",
-    designation: "Member",
-    mobile: "9266629810",
-    extn: "9811119894",
-  },
-  {
-    name: "Rev. Vinod Vohra Ji",
-    designation: "Member",
-    mobile: "9266629826",
-    extn: "7503300488",
-  },
-  {
     name: "Rev. Kishan Dass Ji",
-    designation: "Member",
+    designation: "Member Incharge",
     mobile: "9810792829",
   },
   {
     name: "Rev. Manmohan Chhabra Ji",
-    designation: "Member",
+    designation: "Member Incharge",
     mobile: "9266629798",
     extn: "9839067627",
   },
   {
+    name: "Adv R.K. Kapoor Ji",
+    designation: "Member Incharge",
+    mobile: "9871603266",
+    extn: "9266629999",
+  },
+  {
     name: "Rev. Rakesh Mutreja Ji",
-    designation: "Member",
+    designation: "Member Incharge",
     mobile: "9266629804",
     extn: "9818060706",
   },
   {
-    name: "Rev.  Darshan Singh Ji",
-    designation: "Member",
-    mobile: "7007740067",
-    extn: "9450168773",
-  },
-  {
     name: "Rev. H.S. Guleria Ji",
-    designation: "Member",
+    designation: "Member Incharge",
     mobile: "8491941178",
   },
 ]

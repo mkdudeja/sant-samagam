@@ -365,34 +365,35 @@ function App() {
             {rowData.map((item) => (
               <tr key={item.name}>
                 <td className="py-1 px-2 lg:py-1 w-6/12">
-                  <div className="flex flex-col">
-                    <h4 className="break-words whitespace-normal">
-                      {item.name}
-                    </h4>
-                    <div className="flex justify-between items-center lg:hidden print:hidden">
-                      <span className="text-gray-500 dark:text-gray-400">
+                  {/* mobile: two columns — text takes remaining width, numbers shrink to content */}
+                  <div className="flex flex-row items-start gap-2">
+                    <div className="flex flex-col flex-1 min-w-0">
+                      <h4 className="break-words whitespace-normal">
+                        {item.name}
+                      </h4>
+                      <span className="text-gray-500 dark:text-gray-400 lg:hidden print:hidden">
                         {item.designation}
                       </span>
-                      <div className="flex flex-col">
+                    </div>
+                    <div className="flex flex-col shrink-0 items-end whitespace-nowrap lg:hidden print:hidden">
+                      <span>
+                        {renderPhone(
+                          item.mobile as string,
+                          1,
+                          true,
+                          contactMeta(item, "mobile", "samagam_committee"),
+                        )}
+                      </span>
+                      {!!item.extn && (
                         <span>
                           {renderPhone(
-                            item.mobile as string,
+                            item.extn as string,
                             1,
                             true,
-                            contactMeta(item, "mobile", "samagam_committee"),
+                            contactMeta(item, "extn", "samagam_committee"),
                           )}
                         </span>
-                        {!!item.extn && (
-                          <span>
-                            {renderPhone(
-                              item.extn as string,
-                              1,
-                              true,
-                              contactMeta(item, "extn", "samagam_committee"),
-                            )}
-                          </span>
-                        )}
-                      </div>
+                      )}
                     </div>
                   </div>
                 </td>
